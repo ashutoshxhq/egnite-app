@@ -26,7 +26,7 @@ const Schemas = () => {
             <HStack justifyContent="space-between" width="100%">
                 <Box padding="20px">
                     <Heading color={colorMode === "light" ? "gray.700" : "gray.200"} size="lg">Schemas</Heading>
-                    <Text color="gray.500">This space is for management of all your schemas</Text>
+                    <Text fontSize="sm" color="gray.500">This space is for management of all your schemas</Text>
                 </Box>
                 <Box padding="20px">
                     <Button colorScheme="blue" size="sm" isFullWidth={true}> <BiPlus size="20" /> Create New Schema</Button>
@@ -67,7 +67,7 @@ const Schemas = () => {
             </Box>
             <Box borderRadius="8px" background={colorMode === "light" ? "white" : "gray.800"} width="calc(100% - 40px)" padding="10px 20px">
                 <HStack justifyContent="space-between" padding="10px 0px">
-                    <HStack>
+                    <HStack cursor="pointer">
                         <BiFile color="#718096" size="40" />
                         <Box>
                             <Text fontSize="md" fontWeight="600" color={colorMode === "light" ? "gray.800" : "gray.400"}>Prospects</Text>
