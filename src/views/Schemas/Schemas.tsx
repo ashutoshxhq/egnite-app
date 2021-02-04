@@ -26,7 +26,7 @@ const Schemas = () => {
             <HStack justifyContent="space-between" width="100%">
                 <Box padding="20px">
                     <Heading color={colorMode === "light" ? "gray.700" : "gray.200"} size="lg">Schemas</Heading>
-                    <Text color="gray.500">This space is for management of all your models</Text>
+                    <Text color="gray.500">This space is for management of all your schemas</Text>
                 </Box>
                 <Box padding="20px">
                     <Button colorScheme="blue" size="sm" isFullWidth={true}> <BiPlus size="20" /> Create New Schema</Button>
