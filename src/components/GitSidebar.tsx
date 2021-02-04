@@ -7,7 +7,7 @@ const GitSidebar = () => {
         <Box width="300px" background={colorMode === "light" ? "white" : "gray.800"} className="git-background" height="100vh">
             <VStack spacing={2} align="left">
                 <Box padding="20px 20px 10px 20px">
-                    <Text color={colorMode === "light" ? "gray.600" : "gray.300"} fontWeight="600">SOURCE CODE</Text>
+                    <Text color={colorMode === "light" ? "gray.600" : "gray.300"} fontWeight="700">SOURCE CODE</Text>
                     <Text color="gray.500" fontSize="xs" fontWeight="500">Sync your source code</Text>
                 </Box>
                 <VStack spacing={3} align="left" padding="8px 15px">

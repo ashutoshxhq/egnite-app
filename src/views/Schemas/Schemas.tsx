@@ -1,13 +1,13 @@
-import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Button, Divider, Heading, HStack, IconButton, Table, TableCaption, Tbody, Td, Text, Th, Thead, Tr, useColorMode, VStack } from '@chakra-ui/react'
+import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Button, Heading, HStack, IconButton, Text, useColorMode, VStack } from '@chakra-ui/react'
 import React from 'react'
-import { BiEdit, BiEditAlt, BiFile, BiPlus, BiTrash } from 'react-icons/bi'
+import { BiEditAlt, BiFile, BiPlus, BiTrash } from 'react-icons/bi'
 import { Link } from 'react-router-dom'
 
 const Schemas = () => {
     const { colorMode, } = useColorMode()
 
     return (
-        <VStack>
+        <VStack padding="20px">
             <Box width="100%">
                 <Breadcrumb color="gray.500">
                     <BreadcrumbItem>
@@ -19,7 +19,7 @@ const Schemas = () => {
                     </BreadcrumbItem>
 
                     <BreadcrumbItem isCurrentPage>
-                        <BreadcrumbLink as={Link} to="/schemas">Overview</BreadcrumbLink>
+                        <BreadcrumbLink color={colorMode === "light"?"gray.700":"gray.300"} as={Link} to="/schemas">Overview</BreadcrumbLink>
                     </BreadcrumbItem>
                 </Breadcrumb>
             </Box>
@@ -36,7 +36,7 @@ const Schemas = () => {
 
             <Box borderRadius="8px" background={colorMode === "light" ? "white" : "gray.800"} width="calc(100% - 40px)" padding="10px 20px">
                 <HStack justifyContent="space-between" padding="10px 0px">
-                    <HStack>
+                    <HStack cursor="pointer">
                         <BiFile color="#718096" size="40" />
                         <Box>
                             <Text fontSize="md" fontWeight="600" color={colorMode === "light" ? "gray.800" : "gray.400"}>Cadence</Text>
