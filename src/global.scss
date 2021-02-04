@@ -11,6 +11,15 @@
 .git-background{
     background-image: url("./upload.png") !important;
     background-repeat: no-repeat !important;
-    background-position: bottom right !important;
+    background-position: bottom center !important;
     background-size: 250px !important;
+ }
+ body{
+    font-family: 'Inter', sans-serif !important;
+ }
+
+ .no-border{
+     td{
+         border-bottom: 0px;
+     }
  }

@@ -18,12 +18,12 @@ const Sidebar = () => {
                 </Tooltip>
                 <Tooltip label="Schemas" aria-label="Schemas" placement="right" hasArrow >
                     <Link as={NavLink} to="/schemas" activeClassName="active-menu" display="flex" color="gray.500" background={menuItemColor} borderRadius="18px" justifyContent="center" alignItems="center" width="45px" height="45px">
-                        <BiPaperPlane size="25" />
+                    <   BiFile size="25" />
                     </Link>
                 </Tooltip>
                 <Tooltip label="Functions" aria-label="Functions" placement="right" hasArrow >
                     <Link as={NavLink} to="/functions" activeClassName="active-menu" display="flex" color="gray.500" background={menuItemColor} borderRadius="18px" justifyContent="center" alignItems="center" width="45px" height="45px">
-                        <BiFile size="25" />
+                        <BiPaperPlane size="25" />
                     </Link>
                 </Tooltip>
                 <Tooltip label="Marketplace" aria-label="Marketplace" placement="right" hasArrow >

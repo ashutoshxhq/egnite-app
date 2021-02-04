@@ -1,11 +1,19 @@
 import * as React from "react"
 import {
   ChakraProvider,
-  theme
+  extendTheme
 } from "@chakra-ui/react"
 import { BrowserRouter} from "react-router-dom";
 
 import Layout from "./Layout";
+
+const theme = extendTheme({
+  fonts: {
+    heading: "Inter",
+    body: "Inter",
+  },
+})
+
 
 export const App = () => {
   return (
