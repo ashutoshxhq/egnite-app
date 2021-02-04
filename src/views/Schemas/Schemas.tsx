@@ -1,11 +1,12 @@
-import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Button, Heading, HStack, IconButton, Text, useColorMode, VStack } from '@chakra-ui/react'
+import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Button, FormControl, FormLabel, Heading, HStack, IconButton, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, Textarea, useColorMode, useDisclosure, VStack } from '@chakra-ui/react'
 import React from 'react'
 import { BiEditAlt, BiFile, BiPlus, BiTrash } from 'react-icons/bi'
 import { Link } from 'react-router-dom'
 
 const Schemas = () => {
     const { colorMode, } = useColorMode()
-
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const initialRef = React.useRef<any>()
     return (
         <VStack padding="20px">
             <Box width="100%">
@@ -19,7 +20,7 @@ const Schemas = () => {
                     </BreadcrumbItem>
 
                     <BreadcrumbItem isCurrentPage>
-                        <BreadcrumbLink color={colorMode === "light"?"gray.700":"gray.300"} as={Link} to="/schemas">Overview</BreadcrumbLink>
+                        <BreadcrumbLink color={colorMode === "light" ? "gray.700" : "gray.300"} as={Link} to="/schemas">Overview</BreadcrumbLink>
                     </BreadcrumbItem>
                 </Breadcrumb>
             </Box>
@@ -29,7 +30,37 @@ const Schemas = () => {
                     <Text fontSize="sm" color="gray.500">This space is for management of all your schemas</Text>
                 </Box>
                 <Box padding="20px">
-                    <Button colorScheme="blue" size="sm" isFullWidth={true}> <BiPlus size="20" /> Create New Schema</Button>
+                    <Button onClick={onOpen} colorScheme="blue" size="md" isFullWidth={true}> <BiPlus size="20" /> Create New Schema</Button>
+                    <Modal
+                        
+                        initialFocusRef={initialRef}
+                        isOpen={isOpen}
+                        onClose={onClose}
+                    >
+                        <ModalOverlay />
+                        <ModalContent background={colorMode==="light"?"white":"gray.800"}>
+                            <ModalHeader>Create Schema</ModalHeader>
+                            <ModalCloseButton />
+                            <ModalBody pb={6}>
+                                <FormControl>
+                                    <FormLabel>Name:</FormLabel>
+                                    <Input ref={initialRef} borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
+                                </FormControl>
+
+                                <FormControl mt={4}>
+                                    <FormLabel>Description:</FormLabel>
+                                    <Textarea borderColor={colorMode === "light" ? "gray.300" : "gray.600"} variant="outline" size="md" height="120px" />
+                                </FormControl>
+                            </ModalBody>
+
+                            <ModalFooter>
+                                <Button colorScheme="blue" mr={3}>
+                                <BiPlus size="20" />  Create Schema
+                                </Button>
+                                <Button onClick={onClose}>Cancel</Button>
+                            </ModalFooter>
+                        </ModalContent>
+                    </Modal>
                 </Box>
             </HStack>
             {/* <Divider /> */}
@@ -55,10 +86,10 @@ const Schemas = () => {
                         </Box>
                         <Box width="120px" textAlign="right" fontSize="md" color={colorMode === "light" ? "gray.800" : "gray.400"}>
                             <IconButton variant="ghost" aria-label="Delete" marginRight="1">
-                                <BiEditAlt  color="#718096"  size="20" />
+                                <BiEditAlt color="#718096" size="20" />
                             </IconButton>
                             <IconButton variant="ghost" aria-label="Delete">
-                                <BiTrash  color="#718096"  size="20" />
+                                <BiTrash color="#718096" size="20" />
                             </IconButton>
                         </Box>
                     </HStack>
@@ -85,10 +116,10 @@ const Schemas = () => {
                         </Box>
                         <Box width="120px" textAlign="right" fontSize="md" color={colorMode === "light" ? "gray.800" : "gray.400"}>
                             <IconButton variant="ghost" aria-label="Delete" marginRight="1">
-                                <BiEditAlt  color="#718096"  size="20" />
+                                <BiEditAlt color="#718096" size="20" />
                             </IconButton>
                             <IconButton variant="ghost" aria-label="Delete">
-                                <BiTrash  color="#718096"  size="20" />
+                                <BiTrash color="#718096" size="20" />
                             </IconButton>
                         </Box>
                     </HStack>
