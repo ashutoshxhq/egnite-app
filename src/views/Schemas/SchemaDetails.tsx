@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ModelDetails = () => {
+const SchemaDetails = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const ModelDetails = () => {
     )
 }
 
-export default ModelDetails
+export default SchemaDetails
