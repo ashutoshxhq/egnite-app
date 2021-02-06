@@ -11,7 +11,7 @@ import Account from "./views/Settings/Account";
 import Sidebar from "./components/Sidebar";
 import GitSidebar from "./components/GitSidebar";
 import Schemas from "./views/Schemas/Schemas";
-import SchemaDetails from "./views/Schemas/SchemaDetails";
+import Schema from "./views/Schemas/Schema/Schema";
 
 const Layout = () => {
   const { colorMode } = useColorMode()
@@ -24,7 +24,7 @@ const Layout = () => {
           <Switch>
             <Route path="/" exact><Redirect to="/schemas" /></Route>
             <Route path="/schemas" exact component={Schemas} />
-            <Route path="/schemas/:schemaId" exact component={SchemaDetails} />
+            <Route path="/schemas/:schemaId" exact component={Schema} />
             <Route path="/functions" exact component={Functions} />
             <Route path="/marketplace" exact component={Marketplace} />
             <Route path="/settings" exact component={Account} />

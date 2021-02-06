@@ -32,7 +32,7 @@ const Schemas = () => {
                     <CreateSchema />
                 </Box>
             </HStack>
-            {schemas.map(schema => <SchemaItem id={schema.ID} name={schema.Name} description={schema.Description} fields={schema?.Fields?.length} relations={0} />)}
+            {schemas.map(schema => <SchemaItem key={schema.ID} id={schema.ID} name={schema.Name} description={schema.Description} fields={schema?.Fields?.length} relations={0} />)}
         </VStack>
     )
 }
