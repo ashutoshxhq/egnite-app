@@ -82,7 +82,7 @@ const CreateSchema = () => {
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button isLoading={loading} loadingText="Updating" onClick={handleCreateSchema} colorScheme="blue" mr={3}>
+                        <Button isLoading={loading} loadingText="Creating" onClick={handleCreateSchema} colorScheme="blue" mr={3}>
                             <BiPlus size="20" />  <Text marginLeft="1">Create Schema</Text> 
                                 </Button>
                         <Button onClick={onClose}>Cancel</Button>

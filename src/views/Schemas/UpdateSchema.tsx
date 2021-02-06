@@ -74,7 +74,7 @@ const UpdateSchema = ({ id, name: nameProp, description: descriptionProp }: Upda
             >
                 <ModalOverlay />
                 <ModalContent background={colorMode === "light" ? "white" : "gray.800"}>
-                    <ModalHeader>Create Schema</ModalHeader>
+                    <ModalHeader>Update Schema</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody pb={6}>
                         <FormControl>
@@ -89,7 +89,7 @@ const UpdateSchema = ({ id, name: nameProp, description: descriptionProp }: Upda
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button isLoading={loading} loadingText="Creating" onClick={handleEditSchema} colorScheme="blue" mr={3}>
+                        <Button isLoading={loading} loadingText="Updating" onClick={handleEditSchema} colorScheme="blue" mr={3}>
                             <BiEditAlt size="20" />  <Text marginLeft="1">Update Schema</Text> 
                                 </Button>
                         <Button onClick={onClose}>Cancel</Button>

@@ -20,7 +20,7 @@ const Layout = () => {
     <Box background={colorMode === "light" ? "gray.100" : "gray.900"}>
       <HStack>
         <Sidebar />
-        <Box width="calc(100% - 370px)" padding="10px" height="100vh">
+        <Box width="calc(100% - 370px)" overflowY="scroll" padding="10px" height="100vh">
           <Switch>
             <Route path="/" exact><Redirect to="/schemas" /></Route>
             <Route path="/schemas" exact component={Schemas} />

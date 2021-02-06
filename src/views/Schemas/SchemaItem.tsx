@@ -1,10 +1,10 @@
-import { Box, HStack, IconButton, Text, useColorMode, useToast } from '@chakra-ui/react'
-import axios from 'axios'
-import React, { useState } from 'react'
-import { BiEditAlt, BiFile, BiTrash } from 'react-icons/bi'
+import { Box, HStack, Text, useColorMode } from '@chakra-ui/react'
+
+import React from 'react'
+import { BiFile } from 'react-icons/bi'
 import { useHistory } from 'react-router-dom'
-import { useRecoilState } from 'recoil'
-import { schemasAtom } from '../../store/schemas'
+
+import DeleteSchema from './DeleteSchema'
 import UpdateSchema from './UpdateSchema'
 
 interface SchemaProps {
@@ -18,48 +18,6 @@ interface SchemaProps {
 const SchemaItem = ({ id, name, description, fields, relations }: SchemaProps) => {
     const { colorMode, } = useColorMode()
     const history = useHistory()
-    const [schemas, setSchemas] = useRecoilState(schemasAtom)
-    const [loading, setLoading] = useState(false)
-    const toast = useToast()
-
-    const handleRefreshSchemas = () => {
-        axios.get("http://localhost:8080/schemas?fields=true")
-            .then((res: any) => {
-                setSchemas([...res?.data?.schemas]);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }
-
-    const handleDeleteSchema = () => {
-        setLoading(true)
-        axios.delete(`http://localhost:8080/schemas/${id}`)
-            .then((res) => {
-                console.log(res.data);
-                handleRefreshSchemas()
-                setLoading(false)
-                toast({
-                    title: "Schema deleted.",
-                    description: "Schema deleted successfully.",
-                    position: "bottom-right",
-                    status: "success",
-                    duration: 9000,
-                    isClosable: true,
-                })
-            })
-            .catch((err) => {
-                setLoading(false)
-                toast({
-                    title: "An error occurred.",
-                    description: "Unable to delete schema.",
-                    status: "error",
-                    duration: 9000,
-                    isClosable: true,
-                })
-                console.log(err);
-            });
-    }
 
     return (
         <Box className="scale-animation" borderRadius="8px" background={colorMode === "light" ? "white" : "gray.800"} width="calc(100% - 40px)" padding="10px 20px">
@@ -82,9 +40,7 @@ const SchemaItem = ({ id, name, description, fields, relations }: SchemaProps) =
                     </Box>
                     <Box width="120px" textAlign="right" fontSize="md" color={colorMode === "light" ? "gray.800" : "gray.400"}>
                         <UpdateSchema id={id} name={name} description={description} />
-                        <IconButton onClick={handleDeleteSchema} isLoading={loading} variant="ghost" aria-label="Delete">
-                            <BiTrash color="#718096" size="20" />
-                        </IconButton>
+                        <DeleteSchema id={id}/>
                     </Box>
                 </HStack>
             </HStack>
