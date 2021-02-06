@@ -23,3 +23,9 @@
          border-bottom: 0px;
      }
  }
+
+ .scale-animation:hover{
+    transform: scale(1.02);
+    transition-duration: 50ms;
+    transition-timing-function: ease-in-out;
+ }
