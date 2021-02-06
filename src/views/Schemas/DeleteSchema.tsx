@@ -31,6 +31,7 @@ const DeleteSchema = ({ id }: { id: string }) => {
                 console.log(res.data);
                 handleRefreshSchemas()
                 setLoading(false)
+                onClose()
                 toast({
                     title: "Schema deleted.",
                     description: "Schema deleted successfully.",
@@ -54,7 +55,6 @@ const DeleteSchema = ({ id }: { id: string }) => {
     }
     return (
         <>
-
             <IconButton onClick={() => setIsOpen(true)} variant="ghost" aria-label="Delete">
                 <BiTrash color="#718096" size="20" />
             </IconButton>
