@@ -5,6 +5,7 @@ import { BiEditAlt, BiFile, BiTrash } from 'react-icons/bi'
 import { useHistory } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 import { schemasAtom } from '../../store/schemas'
+import UpdateSchema from './UpdateSchema'
 
 interface SchemaProps {
     id: string,
@@ -80,9 +81,7 @@ const SchemaItem = ({ id, name, description, fields, relations }: SchemaProps) =
                         <Text textAlign="center" fontSize="sm" fontWeight="600" color={colorMode === "light" ? "gray.500" : "gray.500"}>Relations</Text>
                     </Box>
                     <Box width="120px" textAlign="right" fontSize="md" color={colorMode === "light" ? "gray.800" : "gray.400"}>
-                        <IconButton variant="ghost" aria-label="Delete" marginRight="1">
-                            <BiEditAlt color="#718096" size="20" />
-                        </IconButton>
+                        <UpdateSchema id={id} name={name} description={description} />
                         <IconButton onClick={handleDeleteSchema} isLoading={loading} variant="ghost" aria-label="Delete">
                             <BiTrash color="#718096" size="20" />
                         </IconButton>
