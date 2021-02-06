@@ -3,6 +3,8 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { BiPlus } from 'react-icons/bi'
 import { useHistory } from 'react-router-dom'
+import { useRecoilState } from 'recoil'
+import { schemasAtom } from '../../store/schemas'
 
 interface CreateSchemaProps {
     initialRef: any,
@@ -17,12 +19,25 @@ const CreateSchema = ({ initialRef, isOpen, onClose }: CreateSchemaProps) => {
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
     const [loading, setLoading] = useState(false)
+    const [, setSchemas] = useRecoilState(schemasAtom)
+
+    const handleRefreshSchemas = () => {
+        axios.get("http://localhost:8080/schemas?fields=true")
+            .then((res: any) => {
+                setSchemas([...res?.data?.schemas]);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
 
     const handleCreateSchema = () => {
         setLoading(true)
         axios.post("http://localhost:8080/schemas", { name, description })
             .then((res: any) => {
+                handleRefreshSchemas()
                 setLoading(false)
+                onClose()
                 setDescription("")
                 setName("")
                 toast({
@@ -32,9 +47,8 @@ const CreateSchema = ({ initialRef, isOpen, onClose }: CreateSchemaProps) => {
                     status: "success",
                     duration: 9000,
                     isClosable: true,
-                  })
-                  onClose()
-                history.push(`/schemas/${res.data.id}`);
+                })
+                // history.push(`/schemas/${res.data.id}`);
             })
             .catch((err) => {
                 setLoading(false)
@@ -44,7 +58,7 @@ const CreateSchema = ({ initialRef, isOpen, onClose }: CreateSchemaProps) => {
                     status: "error",
                     duration: 9000,
                     isClosable: true,
-                  })
+                })
                 console.log(err);
             });
     }

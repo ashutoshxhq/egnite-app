@@ -5,11 +5,14 @@ import { App } from "./App"
 import reportWebVitals from "./reportWebVitals"
 import * as serviceWorker from "./serviceWorker"
 import './global.scss';
+import { RecoilRoot } from 'recoil';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ColorModeScript />
-    <App />
+    <RecoilRoot>
+      <ColorModeScript />
+      <App />
+    </RecoilRoot>
   </React.StrictMode>,
   document.getElementById("root"),
 )
