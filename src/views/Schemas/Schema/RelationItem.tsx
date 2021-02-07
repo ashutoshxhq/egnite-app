@@ -31,7 +31,7 @@ const RelationItem = ({ id, name, from, refresh, to }: RelationItemProps) => {
 
                     <Box>
                         <Text textAlign="right" fontSize="md" fontWeight="600" color={colorMode === "light" ? "gray.800" : "gray.400"}>{"id -> "+ to }</Text>
-                        <Text textAlign="right" fontSize="sm" fontWeight="600" color={colorMode === "light" ? "gray.500" : "gray.500"}>Relation</Text>
+                        <Text textAlign="right" fontSize="sm" fontWeight="600" color={colorMode === "light" ? "gray.500" : "gray.500"}>Relationship</Text>
                     </Box>
                     
                     <Box width="120px" textAlign="right" fontSize="md" color={colorMode === "light" ? "gray.800" : "gray.400"}>

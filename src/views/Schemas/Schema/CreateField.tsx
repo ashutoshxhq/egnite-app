@@ -57,7 +57,7 @@ const CreateField = () => {
     }
     return (
         <>
-            <Button onClick={onOpen} colorScheme="blue" size="md" isFullWidth={true}> <BiPlus size="20" /> Add New Field</Button>
+            <Button onClick={onOpen} colorScheme="blue" size="md" isFullWidth={true}> <BiPlus size="20" /> Add Field / Relation</Button>
 
             <Modal
                 initialFocusRef={initialRef}
