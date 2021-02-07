@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom'
 import HeadBreadcrumbs from '../../../components/HeadBreadcrumbs'
 import LoadingSkeleton from '../../../components/LoadingSkeleton'
 import CreateField from './CreateField'
+import FieldItem from './FieldItem'
+import RelationItem from './RelationItem'
 
 interface SchemaData {
     ID: string,
@@ -45,6 +47,10 @@ const Schema = () => {
                     <CreateField />
                 </Box>
             </HStack>
+
+            <FieldItem defaultValue="test value" id="1" name="test" type="String" refresh={()=>console.log("Refresh fields")}  />
+            <FieldItem defaultValue="long default value" id="1" name="name" type="String" refresh={()=>console.log("Refresh fields")}  />
+            <RelationItem from="test.id" to="users.testId" id="1" name="test" refresh={()=>console.log("Refresh fields")}  />
         </VStack>
     )
 }
