@@ -2,7 +2,6 @@ import { Box, HStack, Text, useColorMode } from '@chakra-ui/react'
 
 import React from 'react'
 import { BiFile } from 'react-icons/bi'
-import { useHistory } from 'react-router-dom'
 import DeleteField from './DeleteField'
 import UpdateField from './UpdateField'
 
@@ -17,7 +16,6 @@ interface FieldProps {
 
 const FieldItem = ({ id, name, type, refresh, defaultValue }: FieldProps) => {
     const { colorMode, } = useColorMode()
-    const history = useHistory()
 
     return (
         <Box className="scale-animation" borderRadius="8px" background={colorMode === "light" ? "white" : "gray.800"} width="calc(100% - 40px)" padding="10px 20px">
