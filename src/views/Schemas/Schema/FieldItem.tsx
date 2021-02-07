@@ -22,7 +22,7 @@ const FieldItem = ({ id, name, type, refresh, defaultValue }: FieldProps) => {
     return (
         <Box className="scale-animation" borderRadius="8px" background={colorMode === "light" ? "white" : "gray.800"} width="calc(100% - 40px)" padding="10px 20px">
             <HStack justifyContent="space-between" padding="10px 0px">
-                <HStack onClick={() => history.push(`/schemas/${id}`)} cursor="pointer">
+                <HStack>
                     <BiFile color="#718096" size="40" />
                     <Box>
                         <Text fontSize="md" fontWeight="600" color={colorMode === "light" ? "gray.800" : "gray.400"}>{name}</Text>
