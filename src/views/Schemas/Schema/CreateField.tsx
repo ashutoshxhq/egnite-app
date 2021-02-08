@@ -1,4 +1,4 @@
-import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, Textarea, useColorMode, useDisclosure, useToast } from '@chakra-ui/react'
+import { Button, FormControl, FormLabel, HStack, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Radio, RadioGroup, Select, Stack, Switch, Text, useColorMode, useDisclosure, useToast } from '@chakra-ui/react'
 import axios from 'axios'
 import React, { useState } from 'react'
 import { BiPlus } from 'react-icons/bi'
@@ -11,6 +11,10 @@ const CreateField = () => {
     const initialRef = React.useRef<any>()
     const toast = useToast()
     const [name, setName] = useState("")
+    const [type, setType] = useState("")
+    const [defaultValue, setDefaultValue] = useState("")
+    const [defaultType, setDefaultType] = useState("")
+    const [nullType, setNullType] = useState("NULL")
     const [description, setDescription] = useState("")
     const [loading, setLoading] = useState(false)
     const [, setSchemas] = useRecoilState(schemasAtom)
@@ -66,24 +70,83 @@ const CreateField = () => {
             >
                 <ModalOverlay />
                 <ModalContent background={colorMode === "light" ? "white" : "gray.800"}>
-                    <ModalHeader>Create Field</ModalHeader>
+                    <ModalHeader>Create Field / Relation</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody pb={6}>
                         <FormControl>
                             <FormLabel>Name:</FormLabel>
                             <Input ref={initialRef} value={name} onChange={(e) => setName(e.target.value)} borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
                         </FormControl>
-
                         <FormControl mt={4}>
-                            <FormLabel>Description:</FormLabel>
-                            <Textarea value={description} onChange={(e) => setDescription(e.target.value)} borderColor={colorMode === "light" ? "gray.300" : "gray.600"} variant="outline" size="md" height="120px" />
+                            <FormLabel>Type:</FormLabel>
+                            <Select placeholder="Select Field Type" value={type} onChange={(e) => setType(e.target.value)} borderColor={colorMode === "light" ? "gray.300" : "gray.600"}>
+                                <option value="uuid">uuid</option>
+                                <option value="relation">relation</option>
+                                <option value="string">string</option>
+                                <option value="int32">int32</option>
+                                <option value="int64">int64</option>
+                                <option value="uint32">uint32</option>
+                                <option value="uint64">uint64</option>
+                                <option value="float32">float32</option>
+                                <option value="float64">float64</option>
+                                <option value="boolean">boolean</option>
+                                <option value="datetime">datetime</option>
+                            </Select>
                         </FormControl>
+
+                        {type === "relation" ? null :
+
+                            <><FormControl mt={8}>
+                                {/* <FormLabel>Properties:</FormLabel> */}
+                                <HStack>
+                                    <FormControl display="flex" flex="1" alignItems="center">
+                                        <FormLabel htmlFor="email-alerts" mb="0">
+                                            Unique Field ?
+                                    </FormLabel>
+                                        <Switch id="email-alerts" />
+                                    </FormControl>
+                                    <RadioGroup display="flex" flex="1"  alignItems="center" onChange={(value) => setNullType(value.toString())} value={nullType}>
+                                        <Stack direction="row">
+                                            <Radio value="NULL">Null</Radio>
+                                            <Radio value="NOT_NULL">Not Null</Radio>
+                                        </Stack>
+                                    </RadioGroup>
+
+                                </HStack>
+
+                            </FormControl>
+
+                                <FormControl mt={8}>
+                                    <FormLabel>Default:</FormLabel>
+                                    <Select placeholder="Select Field Type" value={defaultType} onChange={(e) => setDefaultType(e.target.value)} borderColor={colorMode === "light" ? "gray.300" : "gray.600"}>
+                                        <option value="none">none</option>
+
+                                        {type === "uuid" ? <option value="generateRandomUUID">generateRandomUUID</option> : null}
+                                        {type === "int32" || type === "int64" || type === "uint32" || type === "uint64" ? <option value="autoIncrement">autoIncrement</option> : null}
+                                        {type === "boolean" ?
+                                            <>
+                                                <option value="true">true</option>
+                                                <option value="false">false</option>
+                                            </>
+                                            : null}
+                                        {type === "datetime" ? <option value="currentTime">currentTime</option> : null}
+                                        <option value="value">value</option>
+                                    </Select>
+                                </FormControl>
+                                {defaultType === "value" ?
+                                    <FormControl mt={4}>
+                                        <FormLabel>Default Value:</FormLabel>
+                                        <Input value={defaultValue} onChange={(e) => setDefaultValue(e.target.value)} borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
+                                    </FormControl>
+                                    : null}</>
+                        }
+
                     </ModalBody>
 
                     <ModalFooter>
                         <Button isLoading={loading} loadingText="Creating" onClick={handleCreateSchema} colorScheme="blue" mr={3}>
-                            <BiPlus size="20" />  <Text marginLeft="1">Create Schema</Text> 
-                                </Button>
+                            <BiPlus size="20" />  <Text marginLeft="1">Create {type ==="relation"?"Relation":"Field"}</Text>
+                        </Button>
                         <Button onClick={onClose}>Cancel</Button>
                     </ModalFooter>
                 </ModalContent>
