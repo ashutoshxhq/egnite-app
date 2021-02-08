@@ -118,7 +118,7 @@ const CreateField = () => {
 
                                 <FormControl mt={8}>
                                     <FormLabel>Default:</FormLabel>
-                                    <Select placeholder="Select Field Type" value={defaultType} onChange={(e) => setDefaultType(e.target.value)} borderColor={colorMode === "light" ? "gray.300" : "gray.600"}>
+                                    <Select placeholder="Select Default Type" value={defaultType} onChange={(e) => setDefaultType(e.target.value)} borderColor={colorMode === "light" ? "gray.300" : "gray.600"}>
                                         <option value="none">none</option>
 
                                         {type === "uuid" ? <option value="generateRandomUUID">generateRandomUUID</option> : null}
