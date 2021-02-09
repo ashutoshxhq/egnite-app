@@ -50,7 +50,7 @@ const UpdateField = (props: UpdateFieldProps) => {
         }
         setLoading(true)
         axios
-            .put(`http://localhost:8080/fields/${props.id}`, { name, type, default: dValue, null: nullType, unique, schemaID: schemaId})
+            .put(`http://localhost:8080/fields/${props.id}`, { name, type, default: dValue, null: nullType, unique, SchemaID: schemaId})
             .then((res) => {
                 console.log(res.data);
                 handleRefreshSchemas()

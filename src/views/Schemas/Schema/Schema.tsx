@@ -67,7 +67,7 @@ const Schema = () => {
                     <CreateField />
                 </Box>
             </HStack>
-            {schema?.Fields.map(field => <FieldItem defaultValue={field.Default} id={field.ID} name={field.Name} type={field.Type} nullType={field.Null} unique={field.Unique} refresh={() => console.log("Refresh fields")} />)}
+            {schema?.Fields.map(field => <FieldItem key={field.ID} defaultValue={field.Default} id={field.ID} name={field.Name} type={field.Type} nullType={field.Null} unique={field.Unique} refresh={() => console.log("Refresh fields")} />)}
             <RelationItem from="test.id" to="users.testId" id="1" name="test" refresh={() => console.log("Refresh fields")} />
         </VStack>
     )
