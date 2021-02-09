@@ -53,6 +53,7 @@ const CreateField = () => {
             setUnique(false)
             setDefaultValue("")
             setLoading(false)
+            onClose()
             toast({
                 title: "Schema created.",
                 description: "Yay! you can start adding fields now",
@@ -134,7 +135,7 @@ const CreateField = () => {
                                 <FormControl mt={8}>
                                     <FormLabel>Default:</FormLabel>
                                     <Select placeholder="Select Default Type" value={defaultType} onChange={(e) => setDefaultType(e.target.value)} borderColor={colorMode === "light" ? "gray.300" : "gray.600"}>
-                                        <option value="none">none</option>
+                                        <option value="">none</option>
 
                                         {type === "uuid" ? <option value="generateRandomUUID">generateRandomUUID</option> : null}
                                         {type === "int32" || type === "int64" || type === "uint32" || type === "uint64" ? <option value="autoIncrement">autoIncrement</option> : null}

@@ -10,11 +10,13 @@ interface FieldProps {
     name: string,
     type: string,
     defaultValue: string,
+    nullType: string,
+    unique: boolean,
     relations?: number,
     refresh: () => void,
 }
 
-const FieldItem = ({ id, name, type, refresh, defaultValue }: FieldProps) => {
+const FieldItem = ({ id, name, type, refresh, defaultValue, nullType, unique}: FieldProps) => {
     const { colorMode, } = useColorMode()
 
     return (
@@ -24,12 +26,12 @@ const FieldItem = ({ id, name, type, refresh, defaultValue }: FieldProps) => {
                     <BiFile color="#718096" size="40" />
                     <Box>
                         <Text fontSize="md" fontWeight="600" color={colorMode === "light" ? "gray.800" : "gray.400"}>{name}</Text>
-                        <Text fontSize="sm" fontWeight="500" color="gray.500">Type: {type}, Default: {defaultValue}  </Text>
+                        <Text fontSize="sm" fontWeight="500" color="gray.500">Type: {type}{defaultValue === ""?null:", Default: "+defaultValue}  </Text>
                     </Box>
                 </HStack>
                 <HStack>
                     <Box>
-                        <Text textAlign="right" fontSize="md" fontWeight="600" color={colorMode === "light" ? "gray.800" : "gray.400"}>{"Null, Unique"}</Text>
+                        <Text textAlign="right" fontSize="md" fontWeight="600" color={colorMode === "light" ? "gray.800" : "gray.400"}>{nullType === "NULL"?"Null":"Not Null"}, {unique?"Unique":"Not Unique"}</Text>
                         <Text textAlign="right" fontSize="sm" fontWeight="600" color={colorMode === "light" ? "gray.500" : "gray.500"}>Properties</Text>
                     </Box>
 

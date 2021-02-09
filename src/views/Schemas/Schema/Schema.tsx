@@ -2,8 +2,10 @@ import { Box, Heading, HStack, Text, useColorMode, VStack } from '@chakra-ui/rea
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { useRecoilState } from 'recoil'
 import HeadBreadcrumbs from '../../../components/HeadBreadcrumbs'
 import LoadingSkeleton from '../../../components/LoadingSkeleton'
+import { schemasAtom } from '../../../store/schemas'
 import CreateField from './CreateField'
 import FieldItem from './FieldItem'
 import RelationItem from './RelationItem'
@@ -20,24 +22,42 @@ const Schema = () => {
     const { schemaId } = useParams<any>();
     const [schema, setSchema] = useState<SchemaData>()
     const [loading, setLoading] = useState(true)
+    const [schemas, setSchemas] = useRecoilState(schemasAtom)
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/schemas/${schemaId}?fields=true`)
-            .then((res) => {
-                console.log("Data:", res.data)
-                setSchema(res.data.schema)
-                setLoading(false)
+        setLoading(true);
+        if (schemas.length === 0) {
+            axios.get("http://localhost:8080/schemas?fields=true")
+                .then((res: any) => {
+                    setSchemas([...res?.data?.schemas]);
+                    res?.data?.schemas.map((schema: any) => {
+                        if (schema.ID === schemaId) {
+                            setSchema({ ...schema })
+                        }
+                        return schema;
+                    })
+                    setLoading(false);
+                })
+                .catch((err) => {
+                    setLoading(false);
+                    console.log(err);
+                });
+        } else {
+            schemas.map((schema: any) => {
+                if (schema.ID === schemaId) {
+                    setSchema({ ...schema })
+                }
+                setLoading(false);
+                return schema;
             })
-            .catch((err) => {
-                console.log(err);
-            });
-    }, [schemaId, setSchema, setLoading])
+        }
+    }, [schemas, schemaId, setSchemas, setSchema, setLoading])
 
-     if(loading) return <LoadingSkeleton/>
+    if (loading) return <LoadingSkeleton />
 
     return (
         <VStack padding="20px">
-            <HeadBreadcrumbs primary="Schemas" primaryRoute="/schemas" secondary={schema!.Name} secondaryRoute={"/schemas/"+schema!.ID} />
+            <HeadBreadcrumbs primary="Schemas" primaryRoute="/schemas" secondary={schema!.Name} secondaryRoute={"/schemas/" + schema!.ID} />
             <HStack justifyContent="space-between" width="100%">
                 <Box padding="20px">
                     <Heading color={colorMode === "light" ? "gray.700" : "gray.200"} size="lg">{schema!.Name} (Fields & Relations)</Heading>
@@ -47,10 +67,8 @@ const Schema = () => {
                     <CreateField />
                 </Box>
             </HStack>
-
-            <FieldItem defaultValue="test value" id="1" name="test" type="String" refresh={()=>console.log("Refresh fields")}  />
-            <FieldItem defaultValue="long default value" id="1" name="name" type="String" refresh={()=>console.log("Refresh fields")}  />
-            <RelationItem from="test.id" to="users.testId" id="1" name="test" refresh={()=>console.log("Refresh fields")}  />
+            {schema?.Fields.map(field => <FieldItem defaultValue={field.Default} id={field.ID} name={field.Name} type={field.Type} nullType={field.Null} unique={field.Unique} refresh={() => console.log("Refresh fields")} />)}
+            <RelationItem from="test.id" to="users.testId" id="1" name="test" refresh={() => console.log("Refresh fields")} />
         </VStack>
     )
 }
