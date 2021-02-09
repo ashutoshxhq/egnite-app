@@ -35,7 +35,7 @@ const RelationItem = ({ id, name, from, refresh, to }: RelationItemProps) => {
                     </Box>
                     
                     <Box width="120px" textAlign="right" fontSize="md" color={colorMode === "light" ? "gray.800" : "gray.400"}>
-                        <UpdateField refresh={refresh} id={id} name={name} description={"relation"} />
+                        {/* <UpdateField refresh={refresh} id={id} name={name} description={"relation"} /> */}
                         <DeleteField refresh={refresh} id={id}/>
                     </Box>
                 </HStack>
