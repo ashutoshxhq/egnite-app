@@ -2,10 +2,13 @@ import { Button, FormControl, FormLabel, HStack, Input, Modal, ModalBody, ModalC
 import axios from 'axios'
 import React, { useState } from 'react'
 import { BiPlus } from 'react-icons/bi'
+import { useParams } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 import { schemasAtom } from '../../../store/schemas'
 
 const CreateField = () => {
+    const { schemaId } = useParams<any>();
+
     const { colorMode, } = useColorMode()
     const { isOpen, onOpen, onClose } = useDisclosure()
     const initialRef = React.useRef<any>()
@@ -15,7 +18,7 @@ const CreateField = () => {
     const [defaultValue, setDefaultValue] = useState("")
     const [defaultType, setDefaultType] = useState("")
     const [nullType, setNullType] = useState("NULL")
-    const [description, setDescription] = useState("")
+    const [unique, setUnique] = useState(false)
     const [loading, setLoading] = useState(false)
     const [, setSchemas] = useRecoilState(schemasAtom)
 
@@ -29,36 +32,48 @@ const CreateField = () => {
             });
     }
 
-    const handleCreateSchema = () => {
+    const handleCreateField = () =>{
+        let dValue = "";
+        if(defaultType === "value"){
+            dValue = defaultValue;
+        }
+        else {
+            dValue = defaultType;
+        }
         setLoading(true)
-        axios.post("http://localhost:8080/schemas", { name, description })
-            .then((res: any) => {
-                handleRefreshSchemas()
-                setLoading(false)
-                onClose()
-                setDescription("")
-                setName("")
-                toast({
-                    title: "Schema created.",
-                    description: "Yay! you can start adding fields now",
-                    position: "bottom-right",
-                    status: "success",
-                    duration: 9000,
-                    isClosable: true,
-                })
+
+        axios.post("http://localhost:8080/fields", { name, type, default: dValue, null: nullType, unique, schemaID: schemaId})
+          .then((res) => {
+            console.log(res.data);
+            handleRefreshSchemas()
+            setName("")
+            setType("")
+            setDefaultType("")
+            setNullType("NULL")
+            setUnique(false)
+            setDefaultValue("")
+            setLoading(false)
+            toast({
+                title: "Schema created.",
+                description: "Yay! you can start adding fields now",
+                position: "bottom-right",
+                status: "success",
+                duration: 9000,
+                isClosable: true,
             })
-            .catch((err) => {
-                setLoading(false)
-                toast({
-                    title: "An error occurred.",
-                    description: "Unable to create schema.",
-                    status: "error",
-                    duration: 9000,
-                    isClosable: true,
-                })
-                console.log(err);
-            });
-    }
+          })
+          .catch((err) => {
+            setLoading(false)
+            toast({
+                title: "An error occurred.",
+                description: "Unable to create schema.",
+                status: "error",
+                duration: 9000,
+                isClosable: true,
+            })
+            console.log(err);
+          });
+      }
     return (
         <>
             <Button onClick={onOpen} colorScheme="blue" size="md" isFullWidth={true}> <BiPlus size="20" /> Add Field / Relation</Button>
@@ -103,7 +118,7 @@ const CreateField = () => {
                                         <FormLabel htmlFor="email-alerts" mb="0">
                                             Unique Field ?
                                     </FormLabel>
-                                        <Switch id="email-alerts" />
+                                        <Switch id="email-alerts" isChecked={unique} onChange={()=>setUnique(!unique)} />
                                     </FormControl>
                                     <RadioGroup display="flex" flex="1"  alignItems="center" onChange={(value) => setNullType(value.toString())} value={nullType}>
                                         <Stack direction="row">
@@ -144,7 +159,7 @@ const CreateField = () => {
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button isLoading={loading} loadingText="Creating" onClick={handleCreateSchema} colorScheme="blue" mr={3}>
+                        <Button isLoading={loading} loadingText="Creating" onClick={handleCreateField} colorScheme="blue" mr={3}>
                             <BiPlus size="20" />  <Text marginLeft="1">Create {type ==="relation"?"Relation":"Field"}</Text>
                         </Button>
                         <Button onClick={onClose}>Cancel</Button>
