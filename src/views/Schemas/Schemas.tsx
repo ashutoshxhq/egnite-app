@@ -20,6 +20,7 @@ const Schemas = () => {
                 console.log(err);
             });
     }, [setSchemas])
+
     return (
         <VStack padding="20px">
             <HeadBreadcrumbs primary="Schemas" primaryRoute="/schemas" secondary="Overview" secondaryRoute="/schemas" />

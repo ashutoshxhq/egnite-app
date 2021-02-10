@@ -14,7 +14,7 @@ interface RelationItemProps {
     refresh: ()=>void,
 }
 
-const RelationItem = ({ id, name, from, refresh, to }: RelationItemProps) => {
+const RelationItem = ({ id, name, refresh, to }: RelationItemProps) => {
     const { colorMode, } = useColorMode()
 
     return (
