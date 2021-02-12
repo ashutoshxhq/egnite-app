@@ -12,7 +12,7 @@ const Schemas = () => {
     const [schemas, setSchemas] = useRecoilState(schemasAtom)
 
     useEffect(() => {
-        axios.get("http://localhost:8080/schemas?fields=true")
+        axios.get("http://localhost:8080/schemas?fetchRelations=true")
             .then((res: any) => {
                 setSchemas([...res?.data?.schemas]);
             })
@@ -33,7 +33,7 @@ const Schemas = () => {
                     <CreateSchema />
                 </Box>
             </HStack>
-            {schemas.map(schema => <SchemaItem key={schema.ID} id={schema.ID} name={schema.Name} description={schema.Description} fields={schema?.Fields?.length} relations={0} />)}
+            {schemas.map(schema => <SchemaItem key={schema.ID} id={schema.ID} name={schema.Name} description={schema.Description} fields={schema?.Fields?.length} relations={schema?.Relations?.length} />)}
         </VStack>
     )
 }

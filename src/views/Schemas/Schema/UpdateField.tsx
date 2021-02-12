@@ -32,7 +32,7 @@ const UpdateField = (props: UpdateFieldProps) => {
     const [, setSchemas] = useRecoilState(schemasAtom)
 
     const handleRefreshSchemas = () => {
-        axios.get("http://localhost:8080/schemas?fields=true")
+        axios.get("http://localhost:8080/schemas?fetchRelations=true")
             .then((res: any) => {
                 setSchemas([...res?.data?.schemas]);
             })
