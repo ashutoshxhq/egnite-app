@@ -69,7 +69,7 @@ console.log(schemas)
                 </Box>
             </HStack>
             {schema?.Fields.map(field => <FieldItem key={field.ID} defaultValue={field.Default} id={field.ID} name={field.Name} type={field.Type} nullType={field.Null} unique={field.Unique} refresh={() => console.log("Refresh fields")} />)}
-            {schema?.Relations.map(relation => <RelationItem from={relation.From} to="users.testId" id="1" name="test" refresh={() => console.log("Refresh fields")} />)}
+            {schema?.Relations.map(relation => <RelationItem from={relation.FromField.Name} to={relation.ToSchema.Name+"."+relation.ToField.Name} id={relation.ID} name={relation.Name} />)}
             
         </VStack>
     )

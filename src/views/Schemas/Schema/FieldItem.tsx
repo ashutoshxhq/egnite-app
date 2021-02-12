@@ -35,8 +35,8 @@ const FieldItem = ({ id, name, type, refresh, defaultValue, nullType, unique}: F
                         <Text textAlign="right" fontSize="sm" fontWeight="600" color={colorMode === "light" ? "gray.500" : "gray.500"}>Properties</Text>
                     </Box>
                     <Box width="120px" textAlign="right" fontSize="md" color={colorMode === "light" ? "gray.800" : "gray.400"}>
-                        <UpdateField refresh={refresh} id={id} name={name} type={type} default={defaultValue} null={nullType} unique={unique}  />
-                        <DeleteField refresh={refresh} id={id} />
+                        <UpdateField id={id} name={name} type={type} default={defaultValue} null={nullType} unique={unique}  />
+                        <DeleteField id={id} />
                     </Box>
                 </HStack>
             </HStack>

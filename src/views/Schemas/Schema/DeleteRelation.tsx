@@ -5,7 +5,7 @@ import { BiTrash } from 'react-icons/bi'
 import { useRecoilState } from 'recoil'
 import { schemasAtom } from '../../../store/schemas'
 
-const DeleteField = ({ id}: { id: string}) => {
+const DeleteRelation = ({ id}: { id: string}) => {
 
     
     const [isOpen, setIsOpen] = useState(false)
@@ -25,17 +25,16 @@ const DeleteField = ({ id}: { id: string}) => {
             });
     }
 
-    const handleDeleteField = () => {
+    const handleDeleteRelation = () => {
         setLoading(true)
-        axios.delete(`http://localhost:8080/fields/${id}`)
+        axios.delete(`http://localhost:8080/relations/${id}`)
             .then((res) => {
-                console.log(res.data);
                 handleRefreshSchemas()
                 setLoading(false)
                 onClose()
                 toast({
-                    title: "Field deleted.",
-                    description: "Field deleted successfully.",
+                    title: "Relation deleted.",
+                    description: "Relation deleted successfully.",
                     position: "bottom-right",
                     status: "success",
                     duration: 9000,
@@ -46,7 +45,7 @@ const DeleteField = ({ id}: { id: string}) => {
                 setLoading(false)
                 toast({
                     title: "An error occurred.",
-                    description: "Unable to delete field.",
+                    description: "Unable to delete relation.",
                     status: "error",
                     duration: 9000,
                     isClosable: true,
@@ -69,7 +68,7 @@ const DeleteField = ({ id}: { id: string}) => {
                 <AlertDialogOverlay>
                     <AlertDialogContent>
                         <AlertDialogHeader fontSize="lg" fontWeight="bold">
-                            Delete Field
+                            Delete Relation
                         </AlertDialogHeader>
 
                         <AlertDialogBody>
@@ -80,7 +79,7 @@ const DeleteField = ({ id}: { id: string}) => {
                             <Button ref={cancelRef} onClick={onClose}>
                                 Cancel
                             </Button>
-                            <Button isLoading={loading} loadingText={"Deleting"} colorScheme="red" onClick={handleDeleteField} ml={3}>
+                            <Button isLoading={loading} loadingText={"Deleting"} colorScheme="red" onClick={handleDeleteRelation} ml={3}>
                                 Delete
                             </Button>
                         </AlertDialogFooter>
@@ -91,4 +90,4 @@ const DeleteField = ({ id}: { id: string}) => {
     )
 }
 
-export default DeleteField
+export default DeleteRelation

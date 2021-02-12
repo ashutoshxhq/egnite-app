@@ -13,7 +13,6 @@ interface UpdateFieldProps {
     default: string,
     null: string,
     unique: boolean,
-    refresh: ()=>void
 }
 
 const UpdateField = (props: UpdateFieldProps) => {
@@ -54,7 +53,6 @@ const UpdateField = (props: UpdateFieldProps) => {
             .then((res) => {
                 console.log(res.data);
                 handleRefreshSchemas()
-                props.refresh()
                 setLoading(false)
                 onClose()
                 toast({

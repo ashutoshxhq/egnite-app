@@ -1,9 +1,7 @@
 import { Box, HStack, Text, useColorMode } from '@chakra-ui/react'
-
 import React from 'react'
 import { BiFile } from 'react-icons/bi'
-import DeleteField from './DeleteField'
-import UpdateField from './UpdateField'
+import DeleteRelation from './DeleteRelation'
 
 interface RelationItemProps {
     id: string,
@@ -11,10 +9,9 @@ interface RelationItemProps {
     from: string,
     to: string,
     relations?: number,
-    refresh: ()=>void,
 }
 
-const RelationItem = ({ id, name, refresh, to }: RelationItemProps) => {
+const RelationItem = ({ id, name, to, from }: RelationItemProps) => {
     const { colorMode, } = useColorMode()
 
     return (
@@ -30,13 +27,13 @@ const RelationItem = ({ id, name, refresh, to }: RelationItemProps) => {
                 <HStack>
 
                     <Box>
-                        <Text textAlign="right" fontSize="md" fontWeight="600" color={colorMode === "light" ? "gray.800" : "gray.400"}>{"id -> "+ to }</Text>
+                        <Text textAlign="right" fontSize="md" fontWeight="600" color={colorMode === "light" ? "gray.800" : "gray.400"}>{ from +"-> "+ to }</Text>
                         <Text textAlign="right" fontSize="sm" fontWeight="600" color={colorMode === "light" ? "gray.500" : "gray.500"}>Relationship</Text>
                     </Box>
                     
                     <Box width="120px" textAlign="right" fontSize="md" color={colorMode === "light" ? "gray.800" : "gray.400"}>
-                        {/* <UpdateField refresh={refresh} id={id} name={name} description={"relation"} /> */}
-                        <DeleteField refresh={refresh} id={id}/>
+                        {/* <UpdateField  id={id} name={name} description={"relation"} /> */}
+                        <DeleteRelation id={id}/>
                     </Box>
                 </HStack>
             </HStack>
