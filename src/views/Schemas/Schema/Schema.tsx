@@ -15,6 +15,7 @@ interface SchemaData {
     Name: string,
     Description: string,
     Fields: any[],
+    Relations: any[]
 }
 
 const Schema = () => {
@@ -23,11 +24,11 @@ const Schema = () => {
     const [schema, setSchema] = useState<SchemaData>()
     const [loading, setLoading] = useState(true)
     const [schemas, setSchemas] = useRecoilState(schemasAtom)
-
+console.log(schemas)
     useEffect(() => {
         setLoading(true);
         if (schemas.length === 0) {
-            axios.get("http://localhost:8080/schemas?fields=true")
+            axios.get("http://localhost:8080/schemas?fetchRelations=true")
                 .then((res: any) => {
                     setSchemas([...res?.data?.schemas]);
                     res?.data?.schemas.map((schema: any) => {
@@ -68,7 +69,8 @@ const Schema = () => {
                 </Box>
             </HStack>
             {schema?.Fields.map(field => <FieldItem key={field.ID} defaultValue={field.Default} id={field.ID} name={field.Name} type={field.Type} nullType={field.Null} unique={field.Unique} refresh={() => console.log("Refresh fields")} />)}
-            <RelationItem from="test.id" to="users.testId" id="1" name="test" refresh={() => console.log("Refresh fields")} />
+            {schema?.Relations.map(relation => <RelationItem from={relation.From} to="users.testId" id="1" name="test" refresh={() => console.log("Refresh fields")} />)}
+            
         </VStack>
     )
 }
