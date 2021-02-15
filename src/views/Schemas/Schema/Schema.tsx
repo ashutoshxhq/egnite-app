@@ -14,6 +14,7 @@ import { MdTextFields } from "react-icons/md";
 import { ImListNumbered } from "react-icons/im";
 import UpdateField from './UpdateField'
 import { AiOutlineClockCircle, AiOutlineNumber } from "react-icons/ai";
+
 interface SchemaData {
     ID: string,
     Name: string,
@@ -106,7 +107,7 @@ const Schema = () => {
                                         </Box>
                                         <Box>
                                             <Text fontSize="md" fontWeight="500" color={colorMode === "light" ? "gray.800" : "gray.400"}>{field.Name}</Text>
-                                            <Text fontSize="sm" fontWeight="400" color="gray.500">{field.Null === "NULL" ? "Null" : "Not Null"}, {field.Unique ? "Unique" : "Not Unique"} {field.Default === "" ? null : ", Default: " + field.Default}  </Text>
+                                            <Text fontSize="sm" fontWeight="400" color="gray.500">{field.Null === "NULL" ? "null" : "not null"}, {field.Unique ? "unique" : "not unique"} {field.Default === "" ? null : ", Default: " + field.Default}  </Text>
                                         </Box>
                                     </HStack>
 
@@ -118,7 +119,7 @@ const Schema = () => {
                                 </Td>
                             </Tr>)}
 
-                            {schema?.Relations.map(relation => <Tr  _hover={{backgroundColor:colorMode === "light" ? "gray.50" : "#2d374863"}}>
+                            {schema?.Relations.map(relation => <Tr backgroundColor={colorMode === "light" ? "gray.50" : "#2d374863"}  _hover={{backgroundColor:colorMode === "light" ? "gray.50" : "#2d374863"}}>
                                 <Td>
                                     <HStack>
                                         <Box  marginRight="10px" display="flex" justifyContent="center" alignItems="center" borderRadius="6px" width="40px" height="40px" backgroundColor={colorMode === "light" ? "gray.200" : "gray.700"}>
