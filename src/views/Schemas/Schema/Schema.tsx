@@ -1,7 +1,7 @@
-import { Box, Heading, HStack, Table, TableCaption, Tbody, Td, Text, Tfoot, Th, Thead, Tr, useColorMode, VStack } from '@chakra-ui/react'
+import { Box, Heading, HStack, Table, TableCaption, Tbody, Td, Text, Th, Thead, Tr, useColorMode, VStack } from '@chakra-ui/react'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { BiLink, BiPlus, BiText, BiToggleLeft } from 'react-icons/bi'
+import { BiLink, BiPlus, BiToggleLeft } from 'react-icons/bi'
 import { useParams } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 import HeadBreadcrumbs from '../../../components/HeadBreadcrumbs'
@@ -10,9 +10,8 @@ import { schemasAtom } from '../../../store/schemas'
 import CreateField from './CreateField'
 import DeleteField from './DeleteField'
 import DeleteRelation from './DeleteRelation'
-import FieldItem from './FieldItem'
 import { MdTextFields } from "react-icons/md";
-import { ImClock, ImClock2, ImListNumbered } from "react-icons/im";
+import { ImListNumbered } from "react-icons/im";
 import UpdateField from './UpdateField'
 import { AiOutlineClockCircle, AiOutlineNumber } from "react-icons/ai";
 interface SchemaData {
