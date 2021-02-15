@@ -1,14 +1,18 @@
-import { Box, Heading, HStack, Text, useColorMode, VStack } from '@chakra-ui/react'
+import { Box, Heading, HStack, Table, TableCaption, Tbody, Td, Text, Tfoot, Th, Thead, Tr, useColorMode, VStack } from '@chakra-ui/react'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { BiPlus } from 'react-icons/bi'
 import { useParams } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 import HeadBreadcrumbs from '../../../components/HeadBreadcrumbs'
 import LoadingSkeleton from '../../../components/LoadingSkeleton'
 import { schemasAtom } from '../../../store/schemas'
 import CreateField from './CreateField'
+import DeleteField from './DeleteField'
+import DeleteRelation from './DeleteRelation'
 import FieldItem from './FieldItem'
 import RelationItem from './RelationItem'
+import UpdateField from './UpdateField'
 
 interface SchemaData {
     ID: string,
@@ -24,7 +28,7 @@ const Schema = () => {
     const [schema, setSchema] = useState<SchemaData>()
     const [loading, setLoading] = useState(true)
     const [schemas, setSchemas] = useRecoilState(schemasAtom)
-console.log(schemas)
+    console.log(schemas)
     useEffect(() => {
         setLoading(true);
         if (schemas.length === 0) {
@@ -68,9 +72,56 @@ console.log(schemas)
                     <CreateField />
                 </Box>
             </HStack>
-            {schema?.Fields.map(field => <FieldItem key={field.ID} defaultValue={field.Default} id={field.ID} name={field.Name} type={field.Type} nullType={field.Null} unique={field.Unique} refresh={() => console.log("Refresh fields")} />)}
-            {schema?.Relations.map(relation => <RelationItem from={relation.FromField.Name} to={relation.ToSchema.Name+"."+relation.ToField.Name} id={relation.ID} name={relation.Name} />)}
-            
+            <VStack width="100%">
+                <Box borderRadius="8px" background={colorMode === "light" ? "white" : "gray.800"} width="calc(100% - 40px)" padding="10px 20px">
+                    <Table variant="simple">
+                        <TableCaption cursor="pointer" borderRadius="6px" colorScheme="blue" paddingBottom="0.2rem" backgroundColor={colorMode === "light" ?"gray.200": "gray.700"} paddingTop="0.2rem">
+                            <HStack width="100%" justifyContent="center">
+                                <BiPlus size="20" />
+                                <Text className="text-table-caption"  color={colorMode === "light" ? "gray.800" : "gray.400"} align="center">Add New Field or Relationship</Text>
+                            </HStack>
+                        </TableCaption>
+                        <Thead>
+                            <Tr>
+                                <Th>Field / Relation</Th>
+                                <Th>Type</Th>
+                                <Th isNumeric>Actions</Th>
+                            </Tr>
+                        </Thead>
+                        <Tbody>
+                            {schema?.Fields.map(field => <Tr>
+                                <Td>
+                                    <Box>
+                                        <Text fontSize="md" fontWeight="500" color={colorMode === "light" ? "gray.800" : "gray.400"}>{field.Name}</Text>
+                                        <Text fontSize="sm" fontWeight="400" color="gray.500">{field.Null === "NULL" ? "Null" : "Not Null"}, {field.Unique ? "Unique" : "Not Unique"} {field.Default === "" ? null : ", Default: " + field.Default}  </Text>
+                                    </Box>
+                                </Td>
+                                <Td><Text fontSize="md" fontWeight="500" color={colorMode === "light" ? "gray.800" : "gray.400"}>{field.Type}</Text></Td>
+                                <Td isNumeric>
+                                    <UpdateField id={field.ID} name={field.Name} type={field.Type} default={field.Default} null={field.Null} unique={field.Unique} />
+                                    <DeleteField id={field.ID} />
+                                </Td>
+                            </Tr>)}
+
+                            {schema?.Relations.map(relation => <Tr>
+                                <Td>
+                                    <Box>
+                                        <Text fontSize="md" fontWeight="500" color={colorMode === "light" ? "gray.800" : "gray.400"}>{relation.Name}</Text>
+                                        <Text fontSize="sm" fontWeight="400" color="gray.500"> {relation.FromField.Name + "-> " + relation.ToSchema.Name + "." + relation.ToField.Name} </Text>
+                                    </Box>
+                                </Td>
+                                <Td><Text fontSize="md" fontWeight="500" color={colorMode === "light" ? "gray.800" : "gray.400"}>relation</Text></Td>
+                                <Td isNumeric>
+                                    <DeleteRelation id={relation.ID} />
+                                </Td>
+                            </Tr>)}
+                        </Tbody>
+                        
+                    </Table>
+                </Box>
+                {/* {schema?.Fields.map(field => <FieldItem key={field.ID} defaultValue={field.Default} id={field.ID} name={field.Name} type={field.Type} nullType={field.Null} unique={field.Unique} refresh={() => console.log("Refresh fields")} />)}
+                {schema?.Relations.map(relation => <RelationItem from={relation.FromField.Name} to={relation.ToSchema.Name + "." + relation.ToField.Name} id={relation.ID} name={relation.Name} />)} */}
+            </VStack>
         </VStack>
     )
 }

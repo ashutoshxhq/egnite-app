@@ -33,7 +33,9 @@ const Schemas = () => {
                     <CreateSchema />
                 </Box>
             </HStack>
+            <VStack width="100%">
             {schemas.map(schema => <SchemaItem key={schema.ID} id={schema.ID} name={schema.Name} description={schema.Description} fields={schema?.Fields?.length} relations={schema?.Relations?.length} />)}
+            </VStack>
         </VStack>
     )
 }
