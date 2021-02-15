@@ -94,7 +94,7 @@ const Schema = () => {
                             </Tr>
                         </Thead>
                         <Tbody>
-                            {schema?.Fields.map(field => <Tr>
+                            {schema?.Fields.map(field => <Tr  _hover={{backgroundColor:colorMode === "light" ? "gray.50" : "#2d374863"}}>
                                 <Td>
                                     <HStack>
                                         <Box marginRight="10px" display="flex" justifyContent="center" alignItems="center" borderRadius="6px" width="40px" height="40px" backgroundColor={colorMode === "light" ? "gray.200" : "gray.700"}>
@@ -119,7 +119,7 @@ const Schema = () => {
                                 </Td>
                             </Tr>)}
 
-                            {schema?.Relations.map(relation => <Tr>
+                            {schema?.Relations.map(relation => <Tr  _hover={{backgroundColor:colorMode === "light" ? "gray.50" : "#2d374863"}}>
                                 <Td>
                                     <HStack>
                                         <Box  marginRight="10px" display="flex" justifyContent="center" alignItems="center" borderRadius="6px" width="40px" height="40px" backgroundColor={colorMode === "light" ? "gray.200" : "gray.700"}>
