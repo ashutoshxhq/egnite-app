@@ -1,7 +1,7 @@
 import { Box, Heading, HStack, Table, TableCaption, Tbody, Td, Text, Tfoot, Th, Thead, Tr, useColorMode, VStack } from '@chakra-ui/react'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { BiPlus } from 'react-icons/bi'
+import { BiLink, BiPlus, BiText, BiToggleLeft } from 'react-icons/bi'
 import { useParams } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 import HeadBreadcrumbs from '../../../components/HeadBreadcrumbs'
@@ -11,9 +11,10 @@ import CreateField from './CreateField'
 import DeleteField from './DeleteField'
 import DeleteRelation from './DeleteRelation'
 import FieldItem from './FieldItem'
-import RelationItem from './RelationItem'
+import { MdTextFields } from "react-icons/md";
+import { ImClock, ImClock2, ImListNumbered } from "react-icons/im";
 import UpdateField from './UpdateField'
-
+import { AiOutlineClockCircle, AiOutlineNumber } from "react-icons/ai";
 interface SchemaData {
     ID: string,
     Name: string,
@@ -73,12 +74,16 @@ const Schema = () => {
                 </Box>
             </HStack>
             <VStack width="100%">
-                <Box borderRadius="8px" background={colorMode === "light" ? "white" : "gray.800"} width="calc(100% - 40px)" padding="10px 20px">
+                <Box borderRadius="8px" background={colorMode === "light" ? "white" : "gray.800"} width="calc(100% - 40px)" padding="20px 0px">
                     <Table variant="simple">
-                        <TableCaption cursor="pointer" borderRadius="6px" colorScheme="blue" paddingBottom="0.2rem" backgroundColor={colorMode === "light" ?"gray.200": "gray.700"} paddingTop="0.2rem">
-                            <HStack width="100%" justifyContent="center">
-                                <BiPlus size="20" />
-                                <Text className="text-table-caption"  color={colorMode === "light" ? "gray.800" : "gray.400"} align="center">Add New Field or Relationship</Text>
+                        <TableCaption>
+                            <HStack justifyContent="center" width="100%">
+                            <Box width="50%" cursor="pointer" borderRadius="6px" colorScheme="blue" margin="1rem" marginBottom="0rem" padding="0.2rem" backgroundColor={colorMode === "light" ? "gray.200" : "gray.700"}>
+                                <HStack width="100%" justifyContent="center">
+                                    <BiPlus size="20" />
+                                    <Text className="text-table-caption" color={colorMode === "light" ? "gray.800" : "gray.400"} align="center">Add New Field or Relationship</Text>
+                                </HStack>
+                            </Box>
                             </HStack>
                         </TableCaption>
                         <Thead>
@@ -91,10 +96,21 @@ const Schema = () => {
                         <Tbody>
                             {schema?.Fields.map(field => <Tr>
                                 <Td>
-                                    <Box>
-                                        <Text fontSize="md" fontWeight="500" color={colorMode === "light" ? "gray.800" : "gray.400"}>{field.Name}</Text>
-                                        <Text fontSize="sm" fontWeight="400" color="gray.500">{field.Null === "NULL" ? "Null" : "Not Null"}, {field.Unique ? "Unique" : "Not Unique"} {field.Default === "" ? null : ", Default: " + field.Default}  </Text>
-                                    </Box>
+                                    <HStack>
+                                        <Box marginRight="10px" display="flex" justifyContent="center" alignItems="center" borderRadius="6px" width="40px" height="40px" backgroundColor={colorMode === "light" ? "gray.200" : "gray.700"}>
+                                            {field.Type === "int32" || field.Type === "int64" || field.Type === "uint32" || field.Type === "uint64" ? <ImListNumbered size="25" /> : null}
+                                            {field.Type === "uuid" ? <AiOutlineNumber size="25" /> : null}
+                                            {field.Type === "string" ? <MdTextFields size="25" /> : null}
+                                            {field.Type === "boolean" ? <BiToggleLeft size="25" /> : null}
+                                            {field.Type === "datetime" ? <AiOutlineClockCircle size="25" /> : null}
+
+                                        </Box>
+                                        <Box>
+                                            <Text fontSize="md" fontWeight="500" color={colorMode === "light" ? "gray.800" : "gray.400"}>{field.Name}</Text>
+                                            <Text fontSize="sm" fontWeight="400" color="gray.500">{field.Null === "NULL" ? "Null" : "Not Null"}, {field.Unique ? "Unique" : "Not Unique"} {field.Default === "" ? null : ", Default: " + field.Default}  </Text>
+                                        </Box>
+                                    </HStack>
+
                                 </Td>
                                 <Td><Text fontSize="md" fontWeight="500" color={colorMode === "light" ? "gray.800" : "gray.400"}>{field.Type}</Text></Td>
                                 <Td isNumeric>
@@ -105,10 +121,15 @@ const Schema = () => {
 
                             {schema?.Relations.map(relation => <Tr>
                                 <Td>
-                                    <Box>
-                                        <Text fontSize="md" fontWeight="500" color={colorMode === "light" ? "gray.800" : "gray.400"}>{relation.Name}</Text>
-                                        <Text fontSize="sm" fontWeight="400" color="gray.500"> {relation.FromField.Name + "-> " + relation.ToSchema.Name + "." + relation.ToField.Name} </Text>
-                                    </Box>
+                                    <HStack>
+                                        <Box  marginRight="10px" display="flex" justifyContent="center" alignItems="center" borderRadius="6px" width="40px" height="40px" backgroundColor={colorMode === "light" ? "gray.200" : "gray.700"}>
+                                            <BiLink size="25" />
+                                        </Box>
+                                        <Box>
+                                            <Text fontSize="md" fontWeight="500" color={colorMode === "light" ? "gray.800" : "gray.400"}>{relation.Name}</Text>
+                                            <Text fontSize="sm" fontWeight="400" color="gray.500"> {relation.FromField.Name + "-> " + relation.ToSchema.Name + "." + relation.ToField.Name} </Text>
+                                        </Box>
+                                    </HStack>
                                 </Td>
                                 <Td><Text fontSize="md" fontWeight="500" color={colorMode === "light" ? "gray.800" : "gray.400"}>relation</Text></Td>
                                 <Td isNumeric>
@@ -116,7 +137,7 @@ const Schema = () => {
                                 </Td>
                             </Tr>)}
                         </Tbody>
-                        
+
                     </Table>
                 </Box>
                 {/* {schema?.Fields.map(field => <FieldItem key={field.ID} defaultValue={field.Default} id={field.ID} name={field.Name} type={field.Type} nullType={field.Null} unique={field.Unique} refresh={() => console.log("Refresh fields")} />)}
