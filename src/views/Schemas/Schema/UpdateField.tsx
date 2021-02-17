@@ -10,26 +10,33 @@ interface UpdateFieldProps {
     id: string,
     name: string,
     type: string,
-    default: string,
-    null: string,
-    unique: boolean,
+    default?: string,
+    null?: string,
+    unique?: boolean,
+    to?: string,
+    toSchema?: string,
+    fromField?: string,
+    
 }
-
 const UpdateField = (props: UpdateFieldProps) => {
     const { schemaId } = useParams<any>();
+
     const { colorMode, } = useColorMode()
     const { isOpen, onOpen, onClose } = useDisclosure()
     const initialRef = React.useRef<any>()
     const toast = useToast()
     const [name, setName] = useState(props.name)
     const [type, setType] = useState(props.type)
-    const [defaultValue, setDefaultValue] = useState(props.default === "value"?props.default:"")
-    const [defaultType, setDefaultType] = useState(props.default !== "value"?props.default:"value")
+    const [defaultValue, setDefaultValue] = useState(props.default !== "value"?props.default:"")
+    const [defaultType, setDefaultType] = useState(props.default === "" || props.default === "generateRandomUUID" || props.default === "autoIncrement" || props.default === "true" || props.default === "false" || props.default === "currentTime"?props.default:"value")
     const [nullType, setNullType] = useState(props.null)
     const [unique, setUnique] = useState(props.unique)
+    const [toSchema, setToSchema] = useState(props.toSchema)
+    const [toField, setToField] = useState(props.to)
+    const [fromField, setFromField] = useState(props.fromField)
     const [loading, setLoading] = useState(false)
-    const [, setSchemas] = useRecoilState(schemasAtom)
-
+    const [schemas, setSchemas] = useRecoilState(schemasAtom)
+console.log(props)
     const handleRefreshSchemas = () => {
         axios.get("http://localhost:8080/schemas?fetchRelations=true")
             .then((res: any) => {
@@ -39,8 +46,38 @@ const UpdateField = (props: UpdateFieldProps) => {
                 console.log(err);
             });
     }
+    const handleUpdateRelation = () => {
+        setLoading(true)
+
+        axios.put(`http://localhost:8080/relations/${props.id}`, { name, type, ToSchemaID:toSchema, ToFieldID:toField, FromFieldID:fromField, SchemaID: schemaId })
+            .then((res) => {
+                console.log(res.data);
+                handleRefreshSchemas()
+                setLoading(false)
+                onClose()
+                toast({
+                    title: "Relation created.",
+                    description: "Yay! relationship successfully updated",
+                    position: "bottom-right",
+                    status: "success",
+                    duration: 9000,
+                    isClosable: true,
+                })
+            })
+            .catch((err) => {
+                setLoading(false)
+                toast({
+                    title: "An error occurred.",
+                    description: "Unable to update relation.",
+                    status: "error",
+                    duration: 9000,
+                    isClosable: true,
+                })
+                console.log(err);
+            });
+    }
     const handleUpdateField = () => {
-        let dValue = "";
+        let dValue:any = "";
         if(defaultType === "value"){
             dValue = defaultValue;
         }
@@ -76,11 +113,9 @@ const UpdateField = (props: UpdateFieldProps) => {
                 console.log(err);
             });
     };
-
-
     return (
         <>
-            <IconButton onClick={onOpen} variant="ghost" aria-label="Delete" marginRight="1">
+            <IconButton onClick={onOpen} variant="ghost" aria-label="Delete">
                 <BiEditAlt color="#718096" size="20" />
             </IconButton>
             <Modal
@@ -114,7 +149,32 @@ const UpdateField = (props: UpdateFieldProps) => {
                             </Select>
                         </FormControl>
 
-                        {type === "relation" ? null :
+                        {type === "relation" ?
+                            <>
+                                <FormControl mt={8}>
+                                    <FormLabel>Relationship Schema:</FormLabel>
+                                    <Select placeholder="Select Schema" value={toSchema} onChange={(e) => setToSchema(e.target.value)} borderColor={colorMode === "light" ? "gray.300" : "gray.600"}>
+                                        {schemas.map((schema =><option value={schema.ID}>{schema.Name}</option>))}
+                                    </Select>
+                                </FormControl>
+                                <HStack  mt={4}>
+                                <FormControl>
+                                    <FormLabel>From Field:</FormLabel>
+                                    <Select placeholder="Select From Field" value={fromField} onChange={(e) => setFromField(e.target.value)} borderColor={colorMode === "light" ? "gray.300" : "gray.600"}>
+                                        {schemas.map((schema =>schema.ID === schemaId?schema.Fields.map((field:any) => <option value={field.ID}>{field.Name}</option>):null))}
+                                    </Select>
+                                </FormControl>
+                                <FormControl>
+                                    <FormLabel>To Field:</FormLabel>
+                                    <Select placeholder="Select To Field" value={toField} onChange={(e) => setToField(e.target.value)} borderColor={colorMode === "light" ? "gray.300" : "gray.600"}>
+                                        {schemas.map((schema =>schema.ID === toSchema?schema.Fields.map((field:any) => <option value={field.ID}>{field.Name}</option>):null))}
+
+                                    </Select>
+                                </FormControl>
+                                </HStack>
+                            </>
+
+                            :
 
                             <><FormControl mt={8}>
                                 {/* <FormLabel>Properties:</FormLabel> */}
@@ -123,9 +183,9 @@ const UpdateField = (props: UpdateFieldProps) => {
                                         <FormLabel htmlFor="email-alerts" mb="0">
                                             Unique Field ?
                                     </FormLabel>
-                                        <Switch id="email-alerts" isChecked={unique} onChange={()=>setUnique(!unique)} />
+                                        <Switch id="email-alerts" isChecked={unique} onChange={() => setUnique(!unique)} />
                                     </FormControl>
-                                    <RadioGroup display="flex" flex="1"  alignItems="center" onChange={(value) => setNullType(value.toString())} value={nullType}>
+                                    <RadioGroup display="flex" flex="1" alignItems="center" onChange={(value) => setNullType(value.toString())} value={nullType}>
                                         <Stack direction="row">
                                             <Radio value="NULL">Null</Radio>
                                             <Radio value="NOT_NULL">Not Null</Radio>
@@ -162,9 +222,15 @@ const UpdateField = (props: UpdateFieldProps) => {
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button isLoading={loading} loadingText="Creating" onClick={handleUpdateField} colorScheme="blue" mr={3}>
-                            <BiPlus size="20" />  <Text marginLeft="1">Update {type ==="relation"?"Relation":"Field"}</Text>
-                        </Button>
+                        {type === "relation" ?
+                            <Button isLoading={loading} loadingText="Updating" onClick={handleUpdateRelation} colorScheme="blue" mr={3}>
+                                <BiPlus size="20" />  <Text marginLeft="1">Update Relation</Text>
+                            </Button> :
+                            <Button isLoading={loading} loadingText="Updating" onClick={handleUpdateField} colorScheme="blue" mr={3}>
+                                  <Text marginLeft="1">Update Field</Text>
+                            </Button>
+                        }
+
                         <Button onClick={onClose}>Cancel</Button>
                     </ModalFooter>
                 </ModalContent>

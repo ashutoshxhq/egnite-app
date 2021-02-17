@@ -12,7 +12,7 @@ const GitSidebar = () => {
                 </Box>
                 <VStack spacing={3} align="left" padding="8px 15px">
                     <Textarea placeholder="Message" variant="filled" size="md" height="120px" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
-                    <Button colorScheme="green" size="sm" width="100%">Sync & Generate</Button>
+                    <Button colorScheme="green" size="sm" width="100%">Generate & Commit</Button>
                 </VStack>
                 <Divider color="gray.500" />
 

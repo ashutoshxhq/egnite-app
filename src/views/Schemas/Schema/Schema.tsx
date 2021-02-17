@@ -133,6 +133,8 @@ const Schema = () => {
                                 </Td>
                                 <Td><Text fontSize="md" fontWeight="500" color={colorMode === "light" ? "gray.800" : "gray.400"}>relation</Text></Td>
                                 <Td isNumeric>
+                                     <UpdateField id={relation.ID} name={relation.Name} type={relation.Type} to={relation.ToFieldID} toSchema={relation.ToSchemaID} fromField={relation.FromFieldID}/>
+
                                     <DeleteRelation id={relation.ID} />
                                 </Td>
                             </Tr>)}
