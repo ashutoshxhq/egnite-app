@@ -95,7 +95,7 @@ const Schema = () => {
                         </Thead>
                         <Tbody>
                             {schema?.Fields.map(field => <Tr  _hover={{backgroundColor:colorMode === "light" ? "gray.50" : "#2d374863"}}>
-                                <Td>
+                                <Td borderColor={colorMode === "light" ? "#EDF2F7" : "#2d374830"}>
                                     <HStack>
                                         <Box marginRight="10px" display="flex" justifyContent="center" alignItems="center" borderRadius="6px" width="40px" height="40px" backgroundColor={colorMode === "light" ? "gray.200" : "gray.700"}>
                                             {field.Type === "int32" || field.Type === "int64" || field.Type === "uint32" || field.Type === "uint64" ? <ImListNumbered size="25" /> : null}
@@ -112,15 +112,15 @@ const Schema = () => {
                                     </HStack>
 
                                 </Td>
-                                <Td><Text fontSize="md" fontWeight="500" color={colorMode === "light" ? "gray.800" : "gray.400"}>{field.Type}</Text></Td>
-                                <Td isNumeric>
+                                <Td borderColor={colorMode === "light" ? "#EDF2F7" : "#2d374830"}><Text fontSize="md" fontWeight="500" color={colorMode === "light" ? "gray.800" : "gray.400"}>{field.Type}</Text></Td>
+                                <Td borderColor={colorMode === "light" ? "#EDF2F7" : "#2d374830"} isNumeric>
                                     <UpdateField id={field.ID} name={field.Name} type={field.Type} default={field.Default} null={field.Null} unique={field.Unique} />
                                     <DeleteField id={field.ID} />
                                 </Td>
                             </Tr>)}
 
-                            {schema?.Relations.map(relation => <Tr backgroundColor={colorMode === "light" ? "#f7fafc75" : "#2d37482e"}  _hover={{backgroundColor:colorMode === "light" ? "gray.50" : "#2d374863"}}>
-                                <Td>
+                            {schema?.Relations.map(relation => <Tr backgroundColor={colorMode === "light" ? "#f7fafc75" : "transparent"}  _hover={{backgroundColor:colorMode === "light" ? "gray.50" : "#2d374863"}}>
+                                <Td borderColor={colorMode === "light" ? "#EDF2F7" : "#2d374830"}>
                                     <HStack>
                                         <Box  marginRight="10px" display="flex" justifyContent="center" alignItems="center" borderRadius="6px" width="40px" height="40px" backgroundColor={colorMode === "light" ? "gray.200" : "gray.700"}>
                                             <BiLink size="25" />
@@ -131,8 +131,8 @@ const Schema = () => {
                                         </Box>
                                     </HStack>
                                 </Td>
-                                <Td><Text fontSize="md" fontWeight="500" color={colorMode === "light" ? "gray.800" : "gray.400"}>relation</Text></Td>
-                                <Td isNumeric>
+                                <Td borderColor={colorMode === "light" ? "#EDF2F7" : "#2d374830"}><Text fontSize="md" fontWeight="500" color={colorMode === "light" ? "gray.800" : "gray.400"}>relation</Text></Td>
+                                <Td borderColor={colorMode === "light" ? "#EDF2F7" : "#2d374830"} isNumeric>
                                      <UpdateField id={relation.ID} name={relation.Name} type={relation.Type} to={relation.ToFieldID} toSchema={relation.ToSchemaID} fromField={relation.FromFieldID}/>
 
                                     <DeleteRelation id={relation.ID} />

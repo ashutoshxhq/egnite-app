@@ -144,7 +144,7 @@ console.log(props)
                                 <option value="uint64">uint64</option>
                                 <option value="float32">float32</option>
                                 <option value="float64">float64</option>
-                                <option value="boolean">boolean</option>
+                                <option value="bool">boolean</option>
                                 <option value="datetime">datetime</option>
                             </Select>
                         </FormControl>
