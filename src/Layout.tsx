@@ -7,11 +7,11 @@ import {
 import { Switch, Route, Redirect } from "react-router-dom";
 import Functions from "./views/Functions/Functions";
 import Marketplace from "./views/Marketplace/Marketplace";
-import Account from "./views/Settings/Account";
 import Sidebar from "./components/Sidebar";
 import GitSidebar from "./components/GitSidebar";
 import Schemas from "./views/Schemas/Schemas";
 import Schema from "./views/Schemas/Schema/Schema";
+import General from "./views/Settings/General";
 
 const Layout = () => {
   const { colorMode } = useColorMode()
@@ -27,7 +27,7 @@ const Layout = () => {
             <Route path="/schemas/:schemaId" exact component={Schema} />
             <Route path="/functions" exact component={Functions} />
             <Route path="/marketplace" exact component={Marketplace} />
-            <Route path="/settings" exact component={Account} />
+            <Route path="/settings" exact component={General} />
           </Switch>
         </Box>
         <GitSidebar />

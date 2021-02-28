@@ -1,8 +1,8 @@
 import React from 'react'
-import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Heading, HStack, Text, useColorMode, VStack } from '@chakra-ui/react'
+import { Box, Heading, HStack, Text, useColorMode, VStack } from '@chakra-ui/react'
 import HeadBreadcrumbs from '../../components/HeadBreadcrumbs'
 
-const Account = () => {
+const General = () => {
     const { colorMode, } = useColorMode()
     return (
         <Box width="100%">
@@ -25,4 +25,4 @@ const Account = () => {
     )
 }
 
-export default Account
+export default General
