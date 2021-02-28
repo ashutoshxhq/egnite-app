@@ -78,12 +78,12 @@ const Schema = () => {
                     <Table variant="simple">
                         <TableCaption>
                             <HStack justifyContent="center" width="100%">
-                            <Box width="50%" cursor="pointer" borderRadius="6px" colorScheme="blue" margin="1rem" marginBottom="0rem" padding="0.2rem" backgroundColor={colorMode === "light" ? "gray.200" : "gray.700"}>
-                                <HStack width="100%" justifyContent="center">
-                                    <BiPlus size="20" />
-                                    <Text className="text-table-caption" color={colorMode === "light" ? "gray.800" : "gray.400"} align="center">Add New Field or Relationship</Text>
-                                </HStack>
-                            </Box>
+                                <Box width="50%" cursor="pointer" borderRadius="6px" colorScheme="blue" margin="1rem" marginBottom="0rem" padding="0.2rem" backgroundColor={colorMode === "light" ? "gray.200" : "gray.700"}>
+                                    <HStack width="100%" justifyContent="center">
+                                        <BiPlus size="20" />
+                                        <Text className="text-table-caption" color={colorMode === "light" ? "gray.800" : "gray.400"} align="center">Add New Field or Relationship</Text>
+                                    </HStack>
+                                </Box>
                             </HStack>
                         </TableCaption>
                         <Thead>
@@ -94,35 +94,34 @@ const Schema = () => {
                             </Tr>
                         </Thead>
                         <Tbody>
-                            {schema?.Fields.map(field => <Tr  _hover={{backgroundColor:colorMode === "light" ? "gray.50" : "#2d374863"}}>
+                            {schema?.Fields.map(field => <Tr _hover={{ backgroundColor: colorMode === "light" ? "gray.50" : "#2d374863" }}>
                                 <Td borderColor={colorMode === "light" ? "#EDF2F7" : "#2d374830"}>
                                     <HStack>
                                         <Box marginRight="10px" display="flex" justifyContent="center" alignItems="center" borderRadius="6px" width="40px" height="40px" backgroundColor={colorMode === "light" ? "gray.200" : "gray.700"}>
-                                            {field.Type === "int32" || field.Type === "int64" || field.Type === "uint32" || field.Type === "uint64" ? <ImListNumbered size="25" /> : null}
+                                            {field.Type === "int32" || field.Type === "int64" || field.Type === "uint32" || field.Type === "uint64" || field.Type === "float32" || field.Type === "float64" ? <ImListNumbered size="25" /> : null}
                                             {field.Type === "uuid" ? <AiOutlineNumber size="25" /> : null}
                                             {field.Type === "string" ? <MdTextFields size="25" /> : null}
-                                            {field.Type === "boolean" ? <BiToggleLeft size="25" /> : null}
+                                            {field.Type === "bool" ? <BiToggleLeft size="25" /> : null}
                                             {field.Type === "datetime" ? <AiOutlineClockCircle size="25" /> : null}
 
                                         </Box>
                                         <Box>
                                             <Text fontSize="md" fontWeight="500" color={colorMode === "light" ? "gray.800" : "gray.400"}>{field.Name}</Text>
-                                            <Text fontSize="sm" fontWeight="400" color="gray.500">{field.Null === "NULL" ? "null" : "not null"}, {field.Unique ? "unique" : "not unique"} {field.Default === "" ? null : ", Default: " + field.Default}  </Text>
+                                            <Text fontSize="sm" fontWeight="400" color="gray.500">{field.Name !== "ID" ?<>{field.Null === "NULL" ? "null" : "not null"}, {field.Unique ? "unique" : "not unique"} {field.Default === "" ? null : ", Default: " + field.Default} </>:"Primary Key"} </Text>
                                         </Box>
                                     </HStack>
 
                                 </Td>
                                 <Td borderColor={colorMode === "light" ? "#EDF2F7" : "#2d374830"}><Text fontSize="md" fontWeight="500" color={colorMode === "light" ? "gray.800" : "gray.400"}>{field.Type}</Text></Td>
                                 <Td borderColor={colorMode === "light" ? "#EDF2F7" : "#2d374830"} isNumeric>
-                                    <UpdateField id={field.ID} name={field.Name} type={field.Type} default={field.Default} null={field.Null} unique={field.Unique} />
-                                    <DeleteField id={field.ID} />
+                                    {field.Name !== "ID" ? <><UpdateField id={field.ID} name={field.Name} type={field.Type} default={field.Default} null={field.Null} unique={field.Unique} /><DeleteField id={field.ID} /></> : null}
                                 </Td>
                             </Tr>)}
 
-                            {schema?.Relations.map(relation => <Tr backgroundColor={colorMode === "light" ? "#f7fafc75" : "transparent"}  _hover={{backgroundColor:colorMode === "light" ? "gray.50" : "#2d374863"}}>
+                            {schema?.Relations.map(relation => <Tr backgroundColor={colorMode === "light" ? "#f7fafc75" : "transparent"} _hover={{ backgroundColor: colorMode === "light" ? "gray.50" : "#2d374863" }}>
                                 <Td borderColor={colorMode === "light" ? "#EDF2F7" : "#2d374830"}>
                                     <HStack>
-                                        <Box  marginRight="10px" display="flex" justifyContent="center" alignItems="center" borderRadius="6px" width="40px" height="40px" backgroundColor={colorMode === "light" ? "gray.200" : "gray.700"}>
+                                        <Box marginRight="10px" display="flex" justifyContent="center" alignItems="center" borderRadius="6px" width="40px" height="40px" backgroundColor={colorMode === "light" ? "gray.200" : "gray.700"}>
                                             <BiLink size="25" />
                                         </Box>
                                         <Box>
@@ -133,7 +132,7 @@ const Schema = () => {
                                 </Td>
                                 <Td borderColor={colorMode === "light" ? "#EDF2F7" : "#2d374830"}><Text fontSize="md" fontWeight="500" color={colorMode === "light" ? "gray.800" : "gray.400"}>relation</Text></Td>
                                 <Td borderColor={colorMode === "light" ? "#EDF2F7" : "#2d374830"} isNumeric>
-                                     <UpdateField id={relation.ID} name={relation.Name} type={relation.Type} to={relation.ToFieldID} toSchema={relation.ToSchemaID} fromField={relation.FromFieldID}/>
+                                    <UpdateField id={relation.ID} name={relation.Name} type={relation.Type} to={relation.ToFieldID} toSchema={relation.ToSchemaID} fromField={relation.FromFieldID} />
 
                                     <DeleteRelation id={relation.ID} />
                                 </Td>

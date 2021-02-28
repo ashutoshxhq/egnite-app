@@ -29,19 +29,22 @@ const CreateSchema = () => {
         setLoading(true)
         axios.post("http://localhost:8080/schemas", { name, description })
             .then((res: any) => {
-                handleRefreshSchemas()
-                setLoading(false)
-                onClose()
-                setDescription("")
-                setName("")
-                toast({
-                    title: "Schema created.",
-                    description: "Yay! you can start adding fields now",
-                    position: "bottom-right",
-                    status: "success",
-                    duration: 9000,
-                    isClosable: true,
-                })
+                axios.post("http://localhost:8080/fields", { name: "ID", type: "uuid", default: "primarykey", null: "NOT_NULL", unique: true, schemaID: res.data.id })
+                    .then((res: any) => {
+                        handleRefreshSchemas()
+                        setLoading(false)
+                        onClose()
+                        setDescription("")
+                        setName("")
+                        toast({
+                            title: "Schema created.",
+                            description: "Yay! you can start adding fields now",
+                            position: "bottom-right",
+                            status: "success",
+                            duration: 9000,
+                            isClosable: true,
+                        })
+                    })
             })
             .catch((err) => {
                 setLoading(false)
@@ -83,8 +86,8 @@ const CreateSchema = () => {
 
                     <ModalFooter>
                         <Button isLoading={loading} loadingText="Creating" onClick={handleCreateSchema} colorScheme="blue" mr={3}>
-                            <BiPlus size="20" />  <Text marginLeft="1">Create Schema</Text> 
-                                </Button>
+                            <BiPlus size="20" />  <Text marginLeft="1">Create Schema</Text>
+                        </Button>
                         <Button onClick={onClose}>Cancel</Button>
                     </ModalFooter>
                 </ModalContent>

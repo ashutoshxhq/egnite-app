@@ -173,7 +173,6 @@ const CreateField = () => {
                                     <FormLabel>To Field:</FormLabel>
                                     <Select placeholder="Select To Field" value={toField} onChange={(e) => setToField(e.target.value)} borderColor={colorMode === "light" ? "gray.300" : "gray.600"}>
                                         {schemas.map((schema =>schema.ID === toSchema?schema.Fields.map((field:any) => <option value={field.ID}>{field.Name}</option>):null))}
-
                                     </Select>
                                 </FormControl>
                                 </HStack>
