@@ -205,7 +205,7 @@ const CreateField = () => {
                                     <Select placeholder="Select Default Type" value={defaultType} onChange={(e) => setDefaultType(e.target.value)} borderColor={colorMode === "light" ? "gray.300" : "gray.600"}>
                                         {type === "uuid" ? <option value="generateRandomUUID">generateRandomUUID</option> : null}
                                         {type === "int32" || type === "int64" || type === "uint32" || type === "uint64" ? <option value="autoIncrement">autoIncrement</option> : null}
-                                        {type === "boolean" ?
+                                        {type === "bool" ?
                                             <>
                                                 <option value="true">true</option>
                                                 <option value="false">false</option>
