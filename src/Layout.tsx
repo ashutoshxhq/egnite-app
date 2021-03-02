@@ -12,6 +12,7 @@ import GitSidebar from "./components/GitSidebar";
 import Schemas from "./views/Schemas/Schemas";
 import Schema from "./views/Schemas/Schema/Schema";
 import General from "./views/Settings/General";
+import Dashboard from "./views/Dashboard/Dashboard";
 
 const Layout = () => {
   const { colorMode } = useColorMode()
@@ -22,12 +23,12 @@ const Layout = () => {
         <Sidebar />
         <Box width="calc(100% - 370px)" overflowY="scroll" padding="10px" height="100vh">
           <Switch>
-            <Route path="/" exact><Redirect to="/schemas" /></Route>
-            <Route path="/schemas" exact component={Schemas} />
-            <Route path="/schemas/:schemaId" exact component={Schema} />
-            <Route path="/functions" exact component={Functions} />
-            <Route path="/marketplace" exact component={Marketplace} />
-            <Route path="/settings" exact component={General} />
+            <Route path="/:serviceName/overview" exact component={Dashboard} />
+            <Route path="/:serviceName/schemas" exact component={Schemas} />
+            <Route path="/:serviceName/schemas/:schemaId" exact component={Schema} />
+            <Route path="/:serviceName/functions" exact component={Functions} />
+            <Route path="/:serviceName/marketplace" exact component={Marketplace} />
+            <Route path="/:serviceName/settings" exact component={General} />
           </Switch>
         </Box>
         <GitSidebar />

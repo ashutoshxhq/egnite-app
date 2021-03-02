@@ -78,6 +78,7 @@ const General = () => {
                     </Box>
                 </HStack>
                 <Box borderRadius="8px" background={colorMode === "light" ? "white" : "gray.800"} width="calc(100% - 40px)" padding="20px">
+                    <VStack  justifyContent="flex-start" align-items="flex-start" spacing={6}>
                     <FormControl>
                         <FormLabel>Service Name:</FormLabel>
                         <Input value={name} onChange={(e) => setName(e.target.value)} borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
@@ -94,9 +95,12 @@ const General = () => {
                         <FormLabel>Database URI:</FormLabel>
                         <Input value={databaseURI} onChange={(e) => setDatabaseURI(e.target.value)} borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
                     </FormControl>
-                    <Button mt={4} isLoading={loading} loadingText="Creating" onClick={handleUpdateService} colorScheme="blue" mr={3}>
+                    <Button mt={4} isLoading={loading} loadingText="Updating Service" onClick={handleUpdateService} colorScheme="blue">
                         <BiEditAlt size="20" />  <Text marginLeft="1">Update Service</Text>
                     </Button>
+
+                    </VStack>
+                    
                 </Box>
             </VStack>
 
