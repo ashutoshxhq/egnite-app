@@ -78,7 +78,7 @@ const General = () => {
                     </Box>
                 </HStack>
                 <Box borderRadius="8px" background={colorMode === "light" ? "white" : "gray.800"} width="calc(100% - 40px)" padding="20px">
-                    <VStack  justifyContent="flex-start" align-items="flex-start" spacing={6}>
+                    <VStack  justifyContent="flex-start" alignItems="flex-start" spacing={6}>
                     <FormControl>
                         <FormLabel>Service Name:</FormLabel>
                         <Input value={name} onChange={(e) => setName(e.target.value)} borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
