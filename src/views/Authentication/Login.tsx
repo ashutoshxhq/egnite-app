@@ -27,9 +27,9 @@ import {
           <Text mt="4" align="center" maxW="md" fontWeight="medium">
             <span>Don&apos;t have an account?</span>
             <Box
-              as="a"
+              as="a" href="https://dw4b516oom0.typeform.com/to/amFe8E8d" 
               marginStart="1"
-              href="#"
+              
               color={mode('blue.600', 'blue.200')}
               _hover={{ color: 'blue.600' }}
               display={{ base: 'block', sm: 'revert' }}

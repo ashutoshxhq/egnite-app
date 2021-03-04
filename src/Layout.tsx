@@ -17,7 +17,6 @@ import { Login } from "./views/Authentication/Login";
 import AppLayoutRoute from "./components/AppLayoutRoute";
 
 const Layout = () => {
-  const { colorMode } = useColorMode()
 
   return (
     <Switch>
