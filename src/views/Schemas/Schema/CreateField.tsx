@@ -26,7 +26,7 @@ const CreateField = () => {
     const [schemas, setSchemas] = useRecoilState(schemasAtom)
 
     const handleRefreshSchemas = () => {
-        axios.get("http://localhost:8080/schemas?fetchRelations=true")
+        axios.get("http://localhost:3210/schemas?fetchRelations=true")
             .then((res: any) => {
                 setSchemas([...res?.data?.schemas]);
             })
@@ -37,7 +37,7 @@ const CreateField = () => {
     const handleCreateRelation = () => {
         setLoading(true)
 
-        axios.post("http://localhost:8080/relations", { name, type, ToSchemaID:toSchema, ToFieldID:toField, FromFieldID:fromField, SchemaID: schemaId })
+        axios.post("http://localhost:3210/relations", { name, type, ToSchemaID:toSchema, ToFieldID:toField, FromFieldID:fromField, SchemaID: schemaId })
             .then((res) => {
                 console.log(res.data);
                 handleRefreshSchemas()
@@ -83,7 +83,7 @@ const CreateField = () => {
         }
         setLoading(true)
 
-        axios.post("http://localhost:8080/fields", { name, type, default: dValue, null: nullType, unique, schemaID: schemaId })
+        axios.post("http://localhost:3210/fields", { name, type, default: dValue, null: nullType, unique, schemaID: schemaId })
             .then((res) => {
                 console.log(res.data);
                 handleRefreshSchemas()

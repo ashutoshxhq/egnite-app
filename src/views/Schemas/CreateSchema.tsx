@@ -16,7 +16,7 @@ const CreateSchema = () => {
     const [, setSchemas] = useRecoilState(schemasAtom)
 
     const handleRefreshSchemas = () => {
-        axios.get("http://localhost:8080/schemas?fetchRelations=true")
+        axios.get("http://localhost:3210/schemas?fetchRelations=true")
             .then((res: any) => {
                 setSchemas([...res?.data?.schemas]);
             })
@@ -27,9 +27,9 @@ const CreateSchema = () => {
 
     const handleCreateSchema = () => {
         setLoading(true)
-        axios.post("http://localhost:8080/schemas", { name, description,  ServiceID: localStorage.getItem("ServiceID") })
+        axios.post("http://localhost:3210/schemas", { name, description,  ServiceID: localStorage.getItem("ServiceID") })
             .then((res: any) => {
-                axios.post("http://localhost:8080/fields", { name: "ID", type: "uuid", default: "primarykey", null: "NOT_NULL", unique: true, schemaID: res.data.id })
+                axios.post("http://localhost:3210/fields", { name: "ID", type: "uuid", default: "primarykey", null: "NOT_NULL", unique: true, schemaID: res.data.id })
                     .then((res: any) => {
                         handleRefreshSchemas()
                         setLoading(false)

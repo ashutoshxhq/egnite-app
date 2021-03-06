@@ -22,7 +22,7 @@ const UpdateSchema = ({ id, name: nameProp, description: descriptionProp }: Upda
     const [, setSchemas] = useRecoilState(schemasAtom)
 
     const handleRefreshSchemas = () => {
-        axios.get("http://localhost:8080/schemas?fetchRelations=true")
+        axios.get("http://localhost:3210/schemas?fetchRelations=true")
             .then((res: any) => {
                 setSchemas([...res?.data?.schemas]);
             })
@@ -34,7 +34,7 @@ const UpdateSchema = ({ id, name: nameProp, description: descriptionProp }: Upda
     const handleEditSchema = () => {
         setLoading(true)
         axios
-            .put(`http://localhost:8080/schemas/${id}`, { name, description })
+            .put(`http://localhost:3210/schemas/${id}`, { name, description })
             .then((res) => {
                 console.log(res.data);
                 handleRefreshSchemas()

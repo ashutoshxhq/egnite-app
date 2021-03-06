@@ -27,6 +27,7 @@ const Layout = () => {
       <AppLayoutRoute path="/:serviceName/marketplace" exact component={Marketplace} />
       <AppLayoutRoute path="/:serviceName/settings" exact component={General} />
       <Route path="/login" exact component={Login} />
+      <Route path="/" exact><Redirect to="/login"/></Route>
     </Switch>
   )
 }

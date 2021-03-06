@@ -13,7 +13,7 @@ const Schemas = () => {
     const [schemas, setSchemas] = useRecoilState(schemasAtom)
     const { serviceName } = useParams<any>();
     useEffect(() => {
-        axios.get("http://localhost:8080/schemas?fetchRelations=true")
+        axios.get("http://localhost:3210/schemas?fetchRelations=true")
             .then((res: any) => {
                 setSchemas([...res?.data?.schemas]);
             })

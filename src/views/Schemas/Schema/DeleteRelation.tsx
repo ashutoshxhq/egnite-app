@@ -16,7 +16,7 @@ const DeleteRelation = ({ id}: { id: string}) => {
     const toast = useToast()
 
     const handleRefreshSchemas = () => {
-        axios.get("http://localhost:8080/schemas?fetchRelations=true")
+        axios.get("http://localhost:3210/schemas?fetchRelations=true")
             .then((res: any) => {
                 setSchemas([...res?.data?.schemas]);
             })
@@ -27,7 +27,7 @@ const DeleteRelation = ({ id}: { id: string}) => {
 
     const handleDeleteRelation = () => {
         setLoading(true)
-        axios.delete(`http://localhost:8080/relations/${id}`)
+        axios.delete(`http://localhost:3210/relations/${id}`)
             .then((res) => {
                 handleRefreshSchemas()
                 setLoading(false)

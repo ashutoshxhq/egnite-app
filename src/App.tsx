@@ -17,7 +17,7 @@ const theme = extendTheme({
 
 export const App = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <ChakraProvider theme={theme}>
         <Layout/>
       </ChakraProvider>
