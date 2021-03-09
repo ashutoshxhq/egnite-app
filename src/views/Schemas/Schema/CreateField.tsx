@@ -1,4 +1,4 @@
-import { Button, FormControl, FormLabel, HStack, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Radio, RadioGroup, Select, Stack, Switch, Text, useColorMode, useDisclosure, useToast } from '@chakra-ui/react'
+import { Box, Button, FormControl, FormLabel, HStack, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Radio, RadioGroup, Select, Stack, Switch, Text, useColorMode, useDisclosure, useToast } from '@chakra-ui/react'
 import axios from 'axios'
 import React, { useState } from 'react'
 import { BiPlus } from 'react-icons/bi'
@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 import { schemasAtom } from '../../../store/schemas'
 
-const CreateField = () => {
+const CreateField = ({ buttonType }: any) => {
     const { schemaId } = useParams<any>();
 
     const { colorMode, } = useColorMode()
@@ -19,6 +19,7 @@ const CreateField = () => {
     const [defaultType, setDefaultType] = useState("")
     const [nullType, setNullType] = useState("NULL")
     const [unique, setUnique] = useState(false)
+    const [privateField, setPrivateField] = useState(false)
     const [toSchema, setToSchema] = useState("")
     const [toField, setToField] = useState("")
     const [fromField, setFromField] = useState("")
@@ -37,7 +38,7 @@ const CreateField = () => {
     const handleCreateRelation = () => {
         setLoading(true)
 
-        axios.post("http://localhost:3210/relations", { name, type, ToSchemaID:toSchema, ToFieldID:toField, FromFieldID:fromField, SchemaID: schemaId })
+        axios.post("http://localhost:3210/relations", { name, type, ToSchemaID: toSchema, ToFieldID: toField, FromFieldID: fromField, SchemaID: schemaId })
             .then((res) => {
                 console.log(res.data);
                 handleRefreshSchemas()
@@ -121,7 +122,14 @@ const CreateField = () => {
     }
     return (
         <>
-            <Button onClick={onOpen} colorScheme="blue" size="md" isFullWidth={true}> <BiPlus size="20" /> Add Field / Relation</Button>
+            {buttonType === "table" ? <HStack onClick={onOpen} justifyContent="center" width="100%">
+                <Box width="50%" cursor="pointer" borderRadius="6px" colorScheme="blue" margin="1rem" marginBottom="0rem" padding="0.2rem" backgroundColor={colorMode === "light" ? "gray.200" : "gray.700"}>
+                    <HStack width="100%" justifyContent="center">
+                        <BiPlus size="20" />
+                        <Text className="text-table-caption" color={colorMode === "light" ? "gray.800" : "gray.400"} align="center">Add New Field or Relationship</Text>
+                    </HStack>
+                </Box>
+            </HStack> : <Button onClick={onOpen} colorScheme="blue" size="md" isFullWidth={true}> <BiPlus size="20" /> Add Field / Relation</Button>}
 
             <Modal
                 initialFocusRef={initialRef}
@@ -129,7 +137,7 @@ const CreateField = () => {
                 onClose={onClose}
             >
                 <ModalOverlay />
-                <ModalContent background={colorMode === "light" ? "white" : "gray.800"}>
+                <ModalContent >
                     <ModalHeader>Create Field / Relation</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody pb={6}>
@@ -159,22 +167,22 @@ const CreateField = () => {
                                 <FormControl mt={8}>
                                     <FormLabel>Relationship Schema:</FormLabel>
                                     <Select placeholder="Select Schema" value={toSchema} onChange={(e) => setToSchema(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"}>
-                                        {schemas.map((schema =><option value={schema.ID}>{schema.Name}</option>))}
+                                        {schemas.map((schema => <option value={schema.ID}>{schema.Name}</option>))}
                                     </Select>
                                 </FormControl>
-                                <HStack  mt={4}>
-                                <FormControl>
-                                    <FormLabel>From Field:</FormLabel>
-                                    <Select placeholder="Select From Field" value={fromField} onChange={(e) => setFromField(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"}>
-                                        {schemas.map((schema =>schema.ID === schemaId?schema.Fields.map((field:any) => <option value={field.ID}>{field.Name}</option>):null))}
-                                    </Select>
-                                </FormControl>
-                                <FormControl>
-                                    <FormLabel>To Field:</FormLabel>
-                                    <Select placeholder="Select To Field" value={toField} onChange={(e) => setToField(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"}>
-                                        {schemas.map((schema =>schema.ID === toSchema?schema.Fields.map((field:any) => <option value={field.ID}>{field.Name}</option>):null))}
-                                    </Select>
-                                </FormControl>
+                                <HStack mt={4}>
+                                    <FormControl>
+                                        <FormLabel>From Field:</FormLabel>
+                                        <Select placeholder="Select From Field" value={fromField} onChange={(e) => setFromField(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"}>
+                                            {schemas.map((schema => schema.ID === schemaId ? schema.Fields.map((field: any) => <option value={field.ID}>{field.Name}</option>) : null))}
+                                        </Select>
+                                    </FormControl>
+                                    <FormControl>
+                                        <FormLabel>To Field:</FormLabel>
+                                        <Select placeholder="Select To Field" value={toField} onChange={(e) => setToField(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"}>
+                                            {schemas.map((schema => schema.ID === toSchema ? schema.Fields.map((field: any) => <option value={field.ID}>{field.Name}</option>) : null))}
+                                        </Select>
+                                    </FormControl>
                                 </HStack>
                             </>
 
@@ -197,6 +205,7 @@ const CreateField = () => {
                                     </RadioGroup>
 
                                 </HStack>
+
 
                             </FormControl>
 
@@ -222,7 +231,14 @@ const CreateField = () => {
                                     </FormControl>
                                     : null}</>
                         }
-
+                        <HStack mt={6}>
+                            <FormControl display="flex" flex="1" alignItems="center">
+                                <FormLabel htmlFor="email-alerts" mb="0">
+                                    Private Field ?
+                                    </FormLabel>
+                                <Switch id="email-alerts" isChecked={privateField} onChange={() => setPrivateField(!privateField)} />
+                            </FormControl>
+                        </HStack>
                     </ModalBody>
 
                     <ModalFooter>

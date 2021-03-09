@@ -1,7 +1,7 @@
 import { Box, Link, Tooltip, useColorMode, useColorModeValue, VStack } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
 import { ColorModeSwitcher } from './ColorModeSwitcher'
-import { BiCog, BiFile, BiLogOut, BiPaperPlane, BiSearch, BiStoreAlt } from "react-icons/bi";
+import { BiCog, BiFile, BiHome, BiLogOut, BiPaperPlane, BiSearch, BiStoreAlt } from "react-icons/bi";
 import { NavLink, useHistory, useLocation } from 'react-router-dom';
 
 const Sidebar = () => {
@@ -14,8 +14,8 @@ const Sidebar = () => {
         <Box display="flex" justifyContent="space-between" flexDirection="column" width="70px" height="100vh" padding="20px 10px" background={colorMode === "light" ? "white" : "gray.800"}>
             <VStack spacing={3}>
                 <Tooltip label="Search" aria-label="Search" placement="right" hasArrow >
-                    <Link as={NavLink} to={"/"+location.pathname.split("/")[1]+"/overview"} activeClassName="active-menu" display="flex" color="gray.500" background={menuItemColor} borderRadius="18px" justifyContent="center" alignItems="center" width="45px" height="45px">
-                        <BiSearch size="25" />
+                    <Link as={NavLink} to={"/dashboard"} activeClassName="active-menu" display="flex" color="gray.500" background={menuItemColor} borderRadius="18px" justifyContent="center" alignItems="center" width="45px" height="45px">
+                        <BiHome size="25" />
                     </Link>
                 </Tooltip>
                 <Tooltip label="Schemas" aria-label="Schemas" placement="right" hasArrow >

@@ -15,19 +15,21 @@ import General from "./views/Settings/General";
 import Dashboard from "./views/Dashboard/Dashboard";
 import { Login } from "./views/Authentication/Login";
 import AppLayoutRoute from "./components/AppLayoutRoute";
+import DashboardLayoutRoute from "./components/DashboardLayoutRoute";
+import SettingsLayoutRoute from "./components/SettingsLayoutRoute";
 
 const Layout = () => {
 
   return (
     <Switch>
-      <AppLayoutRoute path="/:serviceName/overview" exact component={Dashboard} />
+      <Route path="/" exact ><Redirect to="/dashboard"/></Route>
+      <DashboardLayoutRoute path="/dashboard" exact component={Dashboard} />
       <AppLayoutRoute path="/:serviceName/schemas" exact component={Schemas} />
       <AppLayoutRoute path="/:serviceName/schemas/:schemaId" exact component={Schema} />
       <AppLayoutRoute path="/:serviceName/functions" exact component={Functions} />
       <AppLayoutRoute path="/:serviceName/marketplace" exact component={Marketplace} />
-      <AppLayoutRoute path="/:serviceName/settings" exact component={General} />
+      <SettingsLayoutRoute path="/:serviceName/settings" exact component={General} />
       <Route path="/login" exact component={Login} />
-      <Route path="/" exact><Redirect to="/login"/></Route>
     </Switch>
   )
 }

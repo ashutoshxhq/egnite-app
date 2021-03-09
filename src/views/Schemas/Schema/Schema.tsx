@@ -77,14 +77,7 @@ const Schema = () => {
                 <Box borderRadius="8px" background={colorMode === "light" ? "white" : "gray.800"} width="calc(100% - 40px)" padding="20px 0px">
                     <Table variant="simple">
                         <TableCaption>
-                            <HStack justifyContent="center" width="100%">
-                                <Box width="50%" cursor="pointer" borderRadius="6px" colorScheme="blue" margin="1rem" marginBottom="0rem" padding="0.2rem" backgroundColor={colorMode === "light" ? "gray.200" : "gray.700"}>
-                                    <HStack width="100%" justifyContent="center">
-                                        <BiPlus size="20" />
-                                        <Text className="text-table-caption" color={colorMode === "light" ? "gray.800" : "gray.400"} align="center">Add New Field or Relationship</Text>
-                                    </HStack>
-                                </Box>
-                            </HStack>
+                            <CreateField buttonType="table"/>
                         </TableCaption>
                         <Thead>
                             <Tr>

@@ -69,7 +69,7 @@ const CreateSchema = () => {
                 onClose={onClose}
             >
                 <ModalOverlay />
-                <ModalContent background={colorMode === "light" ? "white" : "gray.800"}>
+                <ModalContent>
                     <ModalHeader>Create Schema</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody pb={6}>
