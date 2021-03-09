@@ -135,11 +135,11 @@ const CreateField = () => {
                     <ModalBody pb={6}>
                         <FormControl>
                             <FormLabel>Name:</FormLabel>
-                            <Input ref={initialRef} value={name} onChange={(e) => setName(e.target.value)} borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
+                            <Input ref={initialRef} value={name} onChange={(e) => setName(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
                         </FormControl>
                         <FormControl mt={4}>
                             <FormLabel>Type:</FormLabel>
-                            <Select placeholder="Select Field Type" value={type} onChange={(e) => setType(e.target.value)} borderColor={colorMode === "light" ? "gray.300" : "gray.600"}>
+                            <Select placeholder="Select Field Type" value={type} onChange={(e) => setType(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"}>
                                 <option value="uuid">uuid</option>
                                 <option value="relation">relation</option>
                                 <option value="string">string</option>
@@ -158,20 +158,20 @@ const CreateField = () => {
                             <>
                                 <FormControl mt={8}>
                                     <FormLabel>Relationship Schema:</FormLabel>
-                                    <Select placeholder="Select Schema" value={toSchema} onChange={(e) => setToSchema(e.target.value)} borderColor={colorMode === "light" ? "gray.300" : "gray.600"}>
+                                    <Select placeholder="Select Schema" value={toSchema} onChange={(e) => setToSchema(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"}>
                                         {schemas.map((schema =><option value={schema.ID}>{schema.Name}</option>))}
                                     </Select>
                                 </FormControl>
                                 <HStack  mt={4}>
                                 <FormControl>
                                     <FormLabel>From Field:</FormLabel>
-                                    <Select placeholder="Select From Field" value={fromField} onChange={(e) => setFromField(e.target.value)} borderColor={colorMode === "light" ? "gray.300" : "gray.600"}>
+                                    <Select placeholder="Select From Field" value={fromField} onChange={(e) => setFromField(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"}>
                                         {schemas.map((schema =>schema.ID === schemaId?schema.Fields.map((field:any) => <option value={field.ID}>{field.Name}</option>):null))}
                                     </Select>
                                 </FormControl>
                                 <FormControl>
                                     <FormLabel>To Field:</FormLabel>
-                                    <Select placeholder="Select To Field" value={toField} onChange={(e) => setToField(e.target.value)} borderColor={colorMode === "light" ? "gray.300" : "gray.600"}>
+                                    <Select placeholder="Select To Field" value={toField} onChange={(e) => setToField(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"}>
                                         {schemas.map((schema =>schema.ID === toSchema?schema.Fields.map((field:any) => <option value={field.ID}>{field.Name}</option>):null))}
                                     </Select>
                                 </FormControl>
@@ -202,7 +202,7 @@ const CreateField = () => {
 
                                 <FormControl mt={8}>
                                     <FormLabel>Default:</FormLabel>
-                                    <Select placeholder="Select Default Type" value={defaultType} onChange={(e) => setDefaultType(e.target.value)} borderColor={colorMode === "light" ? "gray.300" : "gray.600"}>
+                                    <Select placeholder="Select Default Type" value={defaultType} onChange={(e) => setDefaultType(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"}>
                                         {type === "uuid" ? <option value="generateRandomUUID">generateRandomUUID</option> : null}
                                         {type === "int32" || type === "int64" || type === "uint32" || type === "uint64" ? <option value="autoIncrement">autoIncrement</option> : null}
                                         {type === "bool" ?
@@ -218,7 +218,7 @@ const CreateField = () => {
                                 {defaultType === "value" ?
                                     <FormControl mt={4}>
                                         <FormLabel>Default Value:</FormLabel>
-                                        <Input value={defaultValue} onChange={(e) => setDefaultValue(e.target.value)} borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
+                                        <Input value={defaultValue} onChange={(e) => setDefaultValue(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
                                     </FormControl>
                                     : null}</>
                         }

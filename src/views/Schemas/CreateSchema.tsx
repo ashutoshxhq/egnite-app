@@ -75,12 +75,12 @@ const CreateSchema = () => {
                     <ModalBody pb={6}>
                         <FormControl>
                             <FormLabel>Name:</FormLabel>
-                            <Input ref={initialRef} value={name} onChange={(e) => setName(e.target.value)} borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
+                            <Input ref={initialRef} value={name} onChange={(e) => setName(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
                         </FormControl>
 
                         <FormControl mt={4}>
                             <FormLabel>Description:</FormLabel>
-                            <Textarea value={description} onChange={(e) => setDescription(e.target.value)} borderColor={colorMode === "light" ? "gray.300" : "gray.600"} variant="outline" size="md" height="120px" />
+                            <Textarea value={description} onChange={(e) => setDescription(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} size="md" height="120px" />
                         </FormControl>
                     </ModalBody>
 
