@@ -9,11 +9,10 @@ const Logout = () => {
         localStorage.setItem("accessToken","")
         localStorage.setItem("serviceID","")
         history.replace("/login")
-    }, [])
+    }, [history]);
     return (
         <div>
             Logging Out...
-            
         </div>
     )
 }
