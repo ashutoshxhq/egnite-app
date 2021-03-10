@@ -2,7 +2,7 @@ import { Box, HStack, Text, useColorMode } from '@chakra-ui/react'
 
 import React from 'react'
 import { BiFile } from 'react-icons/bi'
-import { useHistory, useParams } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 import DeleteSchema from './DeleteSchema'
 import UpdateSchema from './UpdateSchema'
@@ -18,7 +18,6 @@ interface SchemaProps {
 const SchemaItem = ({ id, name, description, fields, relations }: SchemaProps) => {
     const { colorMode, } = useColorMode()
     const history = useHistory()
-    const { serviceName } = useParams<any>();
     return (
         <Box className="scale-animation" borderRadius="8px" background={colorMode === "light" ? "white" : "gray.800"} width="calc(100% - 40px)" padding="10px 20px">
             <HStack justifyContent="space-between" padding="10px 0px">

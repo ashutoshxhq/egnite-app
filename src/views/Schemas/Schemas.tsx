@@ -1,7 +1,6 @@
 import { Box, Heading, HStack, Text, useColorMode, VStack } from '@chakra-ui/react'
 import axios from 'axios'
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 import HeadBreadcrumbs from '../../components/HeadBreadcrumbs'
 import { schemasAtom } from '../../store/schemas'
@@ -11,7 +10,6 @@ import SchemaItem from './SchemaItem'
 const Schemas = () => {
     const { colorMode, } = useColorMode()
     const [schemas, setSchemas] = useRecoilState(schemasAtom)
-    const { serviceName } = useParams<any>();
     useEffect(() => {
         axios.get("http://localhost:3210/schemas?fetchRelations=true")
             .then((res: any) => {

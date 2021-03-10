@@ -25,7 +25,7 @@ interface SchemaData {
 
 const Schema = () => {
     const { colorMode, } = useColorMode()
-    const { schemaId, serviceName } = useParams<any>();
+    const { schemaId } = useParams<any>();
     const [schema, setSchema] = useState<SchemaData>()
     const [loading, setLoading] = useState(true)
     const [schemas, setSchemas] = useRecoilState(schemasAtom)
