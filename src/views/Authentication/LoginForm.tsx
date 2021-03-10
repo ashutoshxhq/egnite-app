@@ -23,7 +23,7 @@ export const LoginForm = () => {
           histroy.replace("/")
           toast({
             title: "Login Successful",
-            description: "Locked and loaded to build apis",
+            description: "Locked and loaded for you to build apis",
             position: "bottom-right",
             status: "success",
             duration: 9000,

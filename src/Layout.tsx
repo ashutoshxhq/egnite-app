@@ -12,6 +12,7 @@ import AppLayoutRoute from "./components/AppLayoutRoute";
 import DashboardLayoutRoute from "./components/DashboardLayoutRoute";
 import SettingsLayoutRoute from "./components/SettingsLayoutRoute";
 import DiscoverService from "./views/DiscoverService";
+import Logout from "./views/Authentication/Logout";
 
 const Layout = () => {
 
@@ -25,6 +26,7 @@ const Layout = () => {
       <AppLayoutRoute path="/:serviceName/marketplace" exact component={Marketplace} />
       <SettingsLayoutRoute path="/:serviceName/settings" exact component={General} />
       <Route path="/login" exact component={Login} />
+      <Route path="/logout" exact component={Logout} />
     </Switch>
   )
 }

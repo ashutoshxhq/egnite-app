@@ -12,7 +12,7 @@ const SettingsLayoutRoute = ({ component: C, ...props }: any) => {
                 <HStack spacing={0}>
                     <Sidebar />
                     {/* <GitSidebar /> */}
-                    <Box width="calc(100% - 370px)" overflowY="scroll" padding="10px" height="100vh">
+                    <Box width="calc(100% - 370px)" overflowY="scroll" padding="10px" height="calc(100vh - 1px)">
                         <C />
                     </Box>
                     <GitSidebar />

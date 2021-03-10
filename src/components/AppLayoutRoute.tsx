@@ -9,9 +9,9 @@ const AppLayoutRoute = ({ component: C, ...props }: any) => {
     return (
         <Route {...props}>
           {localStorage.getItem('loginStatus') === 'true' ?   <Box background={colorMode === "light" ? "gray.100" : "gray.900"}>
-                <HStack>
+                <HStack  spacing={0}>
                     <Sidebar />
-                    <Box width="calc(100% - 370px)" overflowY="scroll" padding="10px" height="100vh">
+                    <Box width="calc(100% - 370px)" overflowY="scroll" padding="10px" height="calc(100vh - 1px)">
                         <C />
                     </Box>
                     <GitSidebar />

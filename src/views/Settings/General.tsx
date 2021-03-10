@@ -14,7 +14,7 @@ const General = () => {
     const toast = useToast()
 
     useEffect(() => {
-        axios.get("http://localhost:3210/services/" + localStorage.getItem("ServiceID"))
+        axios.get("http://localhost:3210/services/" + localStorage.getItem("serviceID"))
             .then((res: any) => {
                 console.log(res)
                 setService(res?.data?.service);
@@ -28,7 +28,7 @@ const General = () => {
     }, [setService])
 
     const handleRefreshService = () => {
-        axios.get("http://localhost:3210/services/" + localStorage.getItem("ServiceID"))
+        axios.get("http://localhost:3210/services/" + localStorage.getItem("serviceID"))
             .then((res: any) => {
                 console.log(res)
                 setService(res?.data?.service);
@@ -43,7 +43,7 @@ const General = () => {
 
     const handleUpdateService = () => {
         setLoading(true)
-        axios.put("http://localhost:3210/services/" + localStorage.getItem("ServiceID"), { name, DatabaseType: database, DatabaseURI: databaseURI })
+        axios.put("http://localhost:3210/services/" + localStorage.getItem("serviceID"), { name, DatabaseType: database, DatabaseURI: databaseURI })
             .then((res: any) => {
                 setTimeout(() => { setLoading(false) }, 300)
 
