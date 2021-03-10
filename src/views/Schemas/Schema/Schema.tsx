@@ -1,7 +1,7 @@
 import { Box, Heading, HStack, Table, TableCaption, Tbody, Td, Text, Th, Thead, Tr, useColorMode, VStack } from '@chakra-ui/react'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { BiLink, BiPlus, BiToggleLeft } from 'react-icons/bi'
+import { BiLink, BiToggleLeft } from 'react-icons/bi'
 import { useParams } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 import HeadBreadcrumbs from '../../../components/HeadBreadcrumbs'

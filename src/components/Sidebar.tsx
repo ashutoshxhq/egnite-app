@@ -1,8 +1,8 @@
 import { Box, Link, Tooltip, useColorMode, useColorModeValue, VStack } from '@chakra-ui/react'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { ColorModeSwitcher } from './ColorModeSwitcher'
-import { BiCog, BiFile, BiHome, BiLogOut, BiPaperPlane, BiSearch, BiStoreAlt } from "react-icons/bi";
-import { NavLink, useHistory, useLocation } from 'react-router-dom';
+import { BiCog, BiFile, BiHome, BiLogOut, BiPaperPlane, BiStoreAlt } from "react-icons/bi";
+import { NavLink, useLocation } from 'react-router-dom';
 
 const Sidebar = () => {
     const { colorMode, } = useColorMode()

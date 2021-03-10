@@ -1,6 +1,6 @@
 import { Box, HStack, useColorMode } from '@chakra-ui/react'
 import React from 'react'
-import { Route } from 'react-router-dom'
+import { Redirect, Route } from 'react-router-dom'
 import GitSidebar from './GitSidebar'
 import Sidebar from './Sidebar'
 
@@ -8,7 +8,7 @@ const AppLayoutRoute = ({ component: C, ...props }: any) => {
     const { colorMode } = useColorMode()
     return (
         <Route {...props}>
-            <Box background={colorMode === "light" ? "gray.100" : "gray.900"}>
+          {localStorage.getItem('loginStatus') === 'true' ?   <Box background={colorMode === "light" ? "gray.100" : "gray.900"}>
                 <HStack>
                     <Sidebar />
                     <Box width="calc(100% - 370px)" overflowY="scroll" padding="10px" height="100vh">
@@ -16,7 +16,7 @@ const AppLayoutRoute = ({ component: C, ...props }: any) => {
                     </Box>
                     <GitSidebar />
                 </HStack>
-            </Box >
+            </Box > : <Redirect to="/login" />}
         </Route>
     )
 }

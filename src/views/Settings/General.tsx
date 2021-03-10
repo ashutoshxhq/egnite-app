@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Button, Divider, Flex, FormControl, FormLabel, Heading, HStack, Input, Select, Text, useColorMode, useToast, VStack } from '@chakra-ui/react'
+import { Box, Button, Divider, FormControl, FormLabel, Heading, HStack, Input, Select, Text, useColorMode, useToast, VStack } from '@chakra-ui/react'
 import HeadBreadcrumbs from '../../components/HeadBreadcrumbs'
 import { BiEditAlt } from 'react-icons/bi'
 import axios from 'axios'
@@ -10,7 +10,7 @@ const General = () => {
     const [database, setDatabase] = useState("")
     const [loading, setLoading] = useState(false)
     const [databaseURI, setDatabaseURI] = useState("")
-    const [service, setService] = useState({})
+    const [, setService] = useState({})
     const toast = useToast()
 
     useEffect(() => {

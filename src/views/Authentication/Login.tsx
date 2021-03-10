@@ -1,19 +1,14 @@
 import {
     Box,
-    Button,
     Heading,
     Image,
-    SimpleGrid,
     Text,
     useColorModeValue as mode,
-    VisuallyHidden,
   } from '@chakra-ui/react'
   import * as React from 'react'
-  import { Logo } from './Logo'
+
   import { LoginForm } from './LoginForm'
-  import { FaFacebook, FaGoogle, FaGithub } from 'react-icons/fa'
-  import { DividerWithText } from './DividerWithText'
-  
+
   export const Login = () => {
     return (
       <Box bg={mode('gray.50', 'inherit')} minH="100vh" py="12" px={{ sm: '6', lg: '8' }}>
@@ -47,21 +42,7 @@ import {
             rounded={{ sm: 'lg' }}
           >
             <LoginForm />
-            <DividerWithText mt="6">or continue with</DividerWithText>
-            <SimpleGrid mt="6" columns={3} spacing="3">
-              <Button color="currentColor" variant="outline">
-                <VisuallyHidden>Login with Facebook</VisuallyHidden>
-                <FaFacebook />
-              </Button>
-              <Button color="currentColor" variant="outline">
-                <VisuallyHidden>Login with Google</VisuallyHidden>
-                <FaGoogle />
-              </Button>
-              <Button color="currentColor" variant="outline">
-                <VisuallyHidden>Login with Github</VisuallyHidden>
-                <FaGithub />
-              </Button>
-            </SimpleGrid>
+            
           </Box>
         </Box>
       </Box>
