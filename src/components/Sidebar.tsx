@@ -2,14 +2,12 @@ import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, Al
 import React from 'react'
 import { ColorModeSwitcher } from './ColorModeSwitcher'
 import { BiCog, BiFile, BiHome, BiLogOut, BiPaperPlane, BiStoreAlt } from "react-icons/bi";
-import { NavLink, useHistory, useLocation } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 
 const Sidebar = () => {
     const { colorMode, } = useColorMode()
     const history = useHistory()
     const menuItemColor = useColorModeValue("gray.200", "gray.700")
-    const location = useLocation<any>();
-    console.log(location.pathname)
     const [isOpen, setIsOpen] = React.useState(false)
     const onClose = () => setIsOpen(false)
     const cancelRef = React.useRef<any>()
@@ -28,22 +26,22 @@ const Sidebar = () => {
                     </Link>
                 </Tooltip>
                 <Tooltip label="Schemas" aria-label="Schemas" placement="right" hasArrow >
-                    <Link as={NavLink} to={"/" + location.pathname.split("/")[1] + "/schemas"} activeClassName="active-menu" display="flex" color="gray.500" background={menuItemColor} borderRadius="18px" justifyContent="center" alignItems="center" width="45px" height="45px">
+                    <Link as={NavLink} to={"/schemas"} activeClassName="active-menu" display="flex" color="gray.500" background={menuItemColor} borderRadius="18px" justifyContent="center" alignItems="center" width="45px" height="45px">
                         <   BiFile size="25" />
                     </Link>
                 </Tooltip>
                 <Tooltip label="Functions" aria-label="Functions" placement="right" hasArrow >
-                    <Link as={NavLink} to={"/" + location.pathname.split("/")[1] + "/functions"} activeClassName="active-menu" display="flex" color="gray.500" background={menuItemColor} borderRadius="18px" justifyContent="center" alignItems="center" width="45px" height="45px">
+                    <Link as={NavLink} to={"/functions"} activeClassName="active-menu" display="flex" color="gray.500" background={menuItemColor} borderRadius="18px" justifyContent="center" alignItems="center" width="45px" height="45px">
                         <BiPaperPlane size="25" />
                     </Link>
                 </Tooltip>
                 <Tooltip label="Marketplace" aria-label="Marketplace" placement="right" hasArrow >
-                    <Link as={NavLink} to={"/" + location.pathname.split("/")[1] + "/marketplace"} activeClassName="active-menu" display="flex" color="gray.500" background={menuItemColor} borderRadius="18px" justifyContent="center" alignItems="center" width="45px" height="45px">
+                    <Link as={NavLink} to={"/marketplace"} activeClassName="active-menu" display="flex" color="gray.500" background={menuItemColor} borderRadius="18px" justifyContent="center" alignItems="center" width="45px" height="45px">
                         <BiStoreAlt size="25" />
                     </Link>
                 </Tooltip>
                 <Tooltip label="Settings" aria-label="Settings" placement="right" hasArrow >
-                    <Link as={NavLink} to={"/" + location.pathname.split("/")[1] + "/settings"} activeClassName="active-menu" display="flex" color="gray.500" background={menuItemColor} borderRadius="18px" justifyContent="center" alignItems="center" width="45px" height="45px">
+                    <Link as={NavLink} to={"/settings"} activeClassName="active-menu" display="flex" color="gray.500" background={menuItemColor} borderRadius="18px" justifyContent="center" alignItems="center" width="45px" height="45px">
                         <BiCog size="25" />
                     </Link>
                 </Tooltip>

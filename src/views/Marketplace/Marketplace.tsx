@@ -1,22 +1,23 @@
+import { Box, Heading, HStack, Text, useColorMode, VStack } from '@chakra-ui/react'
 import React from 'react'
-import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react'
+import HeadBreadcrumbs from '../../components/HeadBreadcrumbs'
 
 const Marketplace = () => {
+    const { colorMode, } = useColorMode()
     return (
         <Box width="100%">
-            <Breadcrumb color="gray.500">
-                <BreadcrumbItem>
-                    <BreadcrumbLink href="#">Egnite</BreadcrumbLink>
-                </BreadcrumbItem>
-
-                <BreadcrumbItem>
-                    <BreadcrumbLink href="#">Marketplace</BreadcrumbLink>
-                </BreadcrumbItem>
-
-                <BreadcrumbItem isCurrentPage>
-                    <BreadcrumbLink href="#">Overview</BreadcrumbLink>
-                </BreadcrumbItem>
-            </Breadcrumb>
+            <VStack padding="20px">
+                <HeadBreadcrumbs primary="Marketplace" primaryRoute="/marketplace" secondary="Overview" secondaryRoute="/marketplace" />
+                <HStack justifyContent="space-between" width="100%">
+                    <Box padding="20px">
+                        <Heading color={colorMode === "light" ? "gray.700" : "gray.200"} size="lg">Marketplace</Heading>
+                        <Text fontSize="sm" color="gray.500">Ready to use apis for you</Text>
+                    </Box>
+                    <Box padding="20px">
+                        {/* <CreateSchema /> */}
+                    </Box>
+                </HStack>
+            </VStack>
         </Box>
     )
 }

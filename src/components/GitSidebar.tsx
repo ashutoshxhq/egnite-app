@@ -22,7 +22,7 @@ const GitSidebar = () => {
     }
 
     return (
-        <Box width="300px" background={colorMode === "light" ? "white" : "gray.800"} className="git-background" height="100vh">
+        <Box width="300px" background={colorMode === "light" ? "white" : "gray.800"} className="git-background" height="calc(100vh - 1px)">
             <VStack spacing={2} align="left">
                 <Box padding="20px 20px 10px 20px">
                     <Text color={colorMode === "light" ? "gray.600" : "gray.300"} fontWeight="700">SOURCE CODE</Text>

@@ -19,12 +19,12 @@ const Layout = () => {
   return (
     <Switch>
       <DashboardLayoutRoute path="/" exact component={DiscoverService} />
-      <DashboardLayoutRoute path="/dashboard" exact component={Dashboard} />
-      <AppLayoutRoute path="/:serviceName/schemas" exact component={Schemas} />
-      <AppLayoutRoute path="/:serviceName/schemas/:schemaId" exact component={Schema} />
-      <AppLayoutRoute path="/:serviceName/functions" exact component={Functions} />
-      <AppLayoutRoute path="/:serviceName/marketplace" exact component={Marketplace} />
-      <SettingsLayoutRoute path="/:serviceName/settings" exact component={General} />
+      <AppLayoutRoute path="/dashboard" exact component={Dashboard} />
+      <AppLayoutRoute path="/schemas" exact component={Schemas} />
+      <AppLayoutRoute path="/schemas/:schemaId" exact component={Schema} />
+      <AppLayoutRoute path="/functions" exact component={Functions} />
+      <AppLayoutRoute path="/marketplace" exact component={Marketplace} />
+      <SettingsLayoutRoute path="/settings" exact component={General} />
       <Route path="/login" exact component={Login} />
       <Route path="/logout" exact component={Logout} />
     </Switch>

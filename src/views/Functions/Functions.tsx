@@ -1,22 +1,23 @@
+import { Box, Heading, HStack, Text, useColorMode, VStack } from '@chakra-ui/react'
 import React from 'react'
-import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react'
+import HeadBreadcrumbs from '../../components/HeadBreadcrumbs'
 
 const Functions = () => {
+    const { colorMode, } = useColorMode()
     return (
         <Box width="100%">
-            <Breadcrumb color="gray.500">
-                <BreadcrumbItem>
-                    <BreadcrumbLink href="#">Egnite</BreadcrumbLink>
-                </BreadcrumbItem>
-
-                <BreadcrumbItem>
-                    <BreadcrumbLink href="#">Functions</BreadcrumbLink>
-                </BreadcrumbItem>
-
-                <BreadcrumbItem isCurrentPage>
-                    <BreadcrumbLink href="#">Overview</BreadcrumbLink>
-                </BreadcrumbItem>
-            </Breadcrumb>
+            <VStack padding="20px">
+                <HeadBreadcrumbs primary="Functions" primaryRoute="/functions" secondary="Overview" secondaryRoute="/functions" />
+                <HStack justifyContent="space-between" width="100%">
+                    <Box padding="20px">
+                        <Heading color={colorMode === "light" ? "gray.700" : "gray.200"} size="lg">Functions</Heading>
+                        <Text fontSize="sm" color="gray.500">Write your custom logic here</Text>
+                    </Box>
+                    <Box padding="20px">
+                        {/* <CreateSchema /> */}
+                    </Box>
+                </HStack>
+            </VStack>
         </Box>
     )
 }
