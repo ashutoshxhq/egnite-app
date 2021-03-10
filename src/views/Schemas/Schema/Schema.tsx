@@ -63,7 +63,7 @@ const Schema = () => {
 
     return (
         <VStack padding="20px">
-            <HeadBreadcrumbs primary="Schemas" primaryRoute={`/${serviceName}/schemas`} secondary={schema!.Name} secondaryRoute={`/${serviceName}/schemas/${schema!.ID}`} />
+            <HeadBreadcrumbs primary="Schemas" primaryRoute={`/schemas`} secondary={schema!.Name} secondaryRoute={`/schemas/${schema!.ID}`} />
             <HStack justifyContent="space-between" width="100%">
                 <Box padding="20px">
                     <Heading color={colorMode === "light" ? "gray.700" : "gray.200"} size="lg">{schema!.Name} (Fields & Relations)</Heading>

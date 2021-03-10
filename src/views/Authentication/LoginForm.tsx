@@ -9,17 +9,20 @@ export const LoginForm = () => {
   const toast = useToast()
   const [email, setEmail] = React.useState("")
   const [password, setPassword] = React.useState("")
+  const [loading, setLoading] = React.useState(false)
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault()
+        setLoading(true)
         console.log(email, password)
-        axios.post("http://localhost:8000/login",{email, password})
+        axios.post("https://egnite-backend.herokuapp.com/login",{email, password})
         .then((response) => {
           console.log(response.data.accessToken)
           localStorage.setItem("accessToken", response.data.accessToken)
           localStorage.setItem("loginStatus", "true")
           localStorage.setItem("userId", response.data.user.ID)
+          setLoading(false)
           histroy.replace("/")
           toast({
             title: "Login Successful",
@@ -32,6 +35,7 @@ export const LoginForm = () => {
         })
         .catch((error) => {
           console.log(error)
+          setLoading(false)
           toast({
             title: "Login Failed",
             description: "Please check your credentials",
@@ -49,7 +53,7 @@ export const LoginForm = () => {
           <Input value={email} onChange={e=>setEmail(e.target.value)}  name="email" type="email" autoComplete="email" required />
         </FormControl>
         <PasswordField value={password} onChange={e=>setPassword(e.target.value)}/>
-        <Button type="submit" colorScheme="blue" size="lg" fontSize="md">
+        <Button isLoading={loading} loadingText="Logging In" type="submit" colorScheme="blue" size="lg" fontSize="md">
           Sign in
         </Button>
       </Stack>

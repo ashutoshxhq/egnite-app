@@ -24,7 +24,7 @@ const Schemas = () => {
 
     return (
         <VStack padding="20px">
-            <HeadBreadcrumbs primary="Schemas" primaryRoute={`/${serviceName}/schemas`} secondary="Overview" secondaryRoute={`/${serviceName}/schemas`} />
+            <HeadBreadcrumbs primary="Schemas" primaryRoute={`/schemas`} secondary="Overview" secondaryRoute={`/schemas`} />
             <HStack justifyContent="space-between" width="100%">
                 <Box padding="20px">
                     <Heading color={colorMode === "light" ? "gray.700" : "gray.200"} size="lg">Schemas</Heading>

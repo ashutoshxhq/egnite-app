@@ -8,7 +8,15 @@ const DiscoverService = () => {
         axios.get("http://localhost:3210/ping")
             .then(response => {
                 console.log(response)
-                history.replace("/schemas")
+                axios.get("http://localhost:3210/services")
+                    .then(res => {
+                        console.log(res.data.services[0].name)
+                        localStorage.setItem("serviceID",res.data.services[0].ID)
+                        history.replace("/schemas")
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
             })
             .catch(err => {
                 console.log(err)
