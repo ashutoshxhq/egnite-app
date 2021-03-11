@@ -10,9 +10,13 @@ const DiscoverService = () => {
                 console.log(response)
                 axios.get("http://localhost:3210/services")
                     .then(res => {
-                        console.log(res.data.services[0].name)
-                        localStorage.setItem("serviceID",res.data.services[0].ID)
-                        history.replace("/schemas")
+                        if (res.data.services.length === 0) {
+                            history.replace("/create-service")
+                        } else {
+                            console.log(res.data.services[0].name)
+                            localStorage.setItem("serviceID", res.data.services[0].ID)
+                            history.replace("/schemas")
+                        }
                     })
                     .catch(err => {
                         console.log(err)

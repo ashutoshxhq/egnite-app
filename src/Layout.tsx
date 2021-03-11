@@ -13,12 +13,14 @@ import DashboardLayoutRoute from "./components/DashboardLayoutRoute";
 import SettingsLayoutRoute from "./components/SettingsLayoutRoute";
 import DiscoverService from "./views/DiscoverService";
 import Logout from "./views/Authentication/Logout";
+import CreateService from "./views/CreateService";
 
 const Layout = () => {
 
   return (
     <Switch>
       <DashboardLayoutRoute path="/" exact component={DiscoverService} />
+      <DashboardLayoutRoute path="/create-service" exact component={CreateService} />
       <AppLayoutRoute path="/dashboard" exact component={Dashboard} />
       <AppLayoutRoute path="/schemas" exact component={Schemas} />
       <AppLayoutRoute path="/schemas/:schemaId" exact component={Schema} />
