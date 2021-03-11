@@ -24,15 +24,16 @@ const CreateService = () => {
     const [databasePassword, setDatabasePassword] = React.useState("")
     const [databaseName, setDatabaseName] = React.useState("")
     const [name, setName] = React.useState("")
-    
+
     const history = useHistory()
 
     const handleCreateService = () => {
         setLoading(true)
-        axios.post("http://localhost:3210/service", { name, DatabaseType: database, DatabaseName: databaseName, DatabaseHost: databaseHost, DatabasePORT: databasePort, DatabaseUser: databaseUser, DatabaseUserPassword: databasePassword })
+        axios.post("http://localhost:3210/services", { name, DatabaseType: database, DatabaseName: databaseName, DatabaseHost: databaseHost, DatabasePORT: databasePort, DatabaseUser: databaseUser, DatabaseUserPassword: databasePassword })
             .then(response => {
+                console.log(response)
                 setLoading(false)
-                localStorage.setItem("serviceID", response.data.services[0].ID)
+                localStorage.setItem("serviceID", response.data.id)
                 history.replace("/schemas")
             })
             .catch(error => {
@@ -100,7 +101,7 @@ const CreateService = () => {
                                 <Input value={databaseName} onChange={e => setDatabaseName(e.target.value)} />
                             </FormControl>
                         </Box>
-                        <Button onClick={handleCreateService} isLoading={loading} loadingText="Logging In" type="submit" colorScheme="blue" size="lg" fontSize="md">
+                        <Button onClick={handleCreateService} isLoading={loading} loadingText="Creating" type="submit" colorScheme="blue" size="lg" fontSize="md">
                             Create Service
                         </Button>
                     </Stack>

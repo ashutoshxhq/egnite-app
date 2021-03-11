@@ -9,7 +9,13 @@ const General = () => {
     const [name, setName] = useState("")
     const [database, setDatabase] = useState("")
     const [loading, setLoading] = useState(false)
-    const [databaseURI, setDatabaseURI] = useState("")
+    const [loadingDatabase, setLoadingDatabase] = useState(false)
+    const [loadingEnv, setLoadingEnv] = useState(false)
+    const [databaseHost, setDatabaseHost] = React.useState("")
+    const [databasePort, setDatabasePort] = React.useState("")
+    const [databaseUser, setDatabaseUser] = React.useState("")
+    const [databasePassword, setDatabasePassword] = React.useState("")
+    const [databaseName, setDatabaseName] = React.useState("")
     const [, setService] = useState({})
     const toast = useToast()
 
@@ -20,7 +26,11 @@ const General = () => {
                 setService(res?.data?.service);
                 setName(res?.data?.service.name)
                 setDatabase(res?.data?.service.DatabaseType)
-                setDatabaseURI(res?.data?.service.DatabaseURI)
+                setDatabaseHost(res?.data?.service.DatabaseHost)
+                setDatabasePort(res?.data?.service.DatabasePORT)
+                setDatabaseUser(res?.data?.service.DatabaseUser)
+                setDatabasePassword(res?.data?.service.DatabaseUserPassword)
+                setDatabaseName(res?.data?.service.DatabaseName)
             })
             .catch((err) => {
                 console.log(err);
@@ -34,16 +44,51 @@ const General = () => {
                 setService(res?.data?.service);
                 setName(res?.data?.service.name)
                 setDatabase(res?.data?.service.DatabaseType)
-                setDatabaseURI(res?.data?.service.DatabaseURI)
+                setDatabaseHost(res?.data?.service.DatabaseHost)
+                setDatabasePort(res?.data?.service.DatabasePORT)
+                setDatabaseUser(res?.data?.service.DatabaseUser)
+                setDatabasePassword(res?.data?.service.DatabaseUserPassword)
+                setDatabaseName(res?.data?.service.DatabaseName)
             })
             .catch((err) => {
                 console.log(err);
             });
     }
 
+    const handleUpdateDatabase = () => {
+        setLoadingDatabase(true)
+        axios.put("http://localhost:3210/services/" + localStorage.getItem("serviceID"), { name, DatabaseType: database, DatabaseName: databaseName, DatabaseHost: databaseHost, DatabasePORT: databasePort, DatabaseUser: databaseUser, DatabaseUserPassword: databasePassword })
+            .then(response => {
+                console.log(response)
+                setTimeout(() => { setLoadingDatabase(false) }, 300)
+
+                
+                toast({
+                    title: "Database Updated.",
+                    description: "Yay! database creds successfully updated",
+                    position: "bottom-right",
+                    status: "success",
+                    duration: 9000,
+                    isClosable: true,
+                })
+            })
+            .catch(error => {
+                setLoadingDatabase(false)
+                console.log(error)
+                toast({
+                    title: "Error Updating.",
+                    description: "Something went wrong updating database creds",
+                    position: "bottom-right",
+                    status: "error",
+                    duration: 9000,
+                    isClosable: true,
+                })
+            })
+    }
+
     const handleUpdateService = () => {
         setLoading(true)
-        axios.put("http://localhost:3210/services/" + localStorage.getItem("serviceID"), { name, DatabaseType: database, DatabaseURI: databaseURI })
+        axios.put("http://localhost:3210/services/" + localStorage.getItem("serviceID"), { name})
             .then((res: any) => {
                 setTimeout(() => { setLoading(false) }, 300)
 
@@ -94,7 +139,7 @@ const General = () => {
                                 <VStack justifyContent="flex-start" alignItems="flex-start" spacing={6}>
                                     <Box width="60%" >
                                         <FormControl>
-                                            <FormLabel>Service Name:</FormLabel>
+                                            <FormLabel>Service Name</FormLabel>
                                             <Input value={name} onChange={(e) => setName(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
                                         </FormControl>
                                     </Box>
@@ -133,21 +178,21 @@ const General = () => {
                             <Box width="100%" px="6" py="4" pb="8">
                                 <VStack justifyContent="flex-start" alignItems="flex-start" spacing={6}>
                                     <HStack width="100%" >
-                                        <Box width="20%" >
+                                        <Box width="30%" >
                                             <FormControl>
-                                                <FormLabel>Variable Name:</FormLabel>
+                                                <FormLabel>Variable Name</FormLabel>
                                                 <Input variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
                                             </FormControl>
                                         </Box>
-                                        <Box width="40%" >
+                                        <Box width="50%" >
                                             <FormControl>
-                                                <FormLabel>Value:</FormLabel>
+                                                <FormLabel>Value</FormLabel>
                                                 <Input variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
                                             </FormControl>
                                         </Box>
                                     </HStack>
 
-                                    <Button size="md" mt={4} isLoading={loading} loadingText="Updating Service" onClick={handleUpdateService} colorScheme="blue">
+                                    <Button size="md" mt={4} isLoading={loadingEnv} loadingText="Updating Service" onClick={handleUpdateService} colorScheme="blue">
                                         <BiSave size="20" />  <Text marginLeft="1">Save Variables</Text>
                                     </Button>
                                 </VStack>
@@ -175,7 +220,7 @@ const General = () => {
 
                                     <Box width="60%" >
                                         <FormControl >
-                                            <FormLabel>Database:</FormLabel>
+                                            <FormLabel>Database</FormLabel>
                                             <Select placeholder="Select Field Type" value={database} onChange={(e) => setDatabase(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"}>
                                                 <option value="postgresql">PostgreSQL</option>
                                                 <option value="mysql">MYSQL</option>
@@ -187,32 +232,32 @@ const General = () => {
 
 
                                         <FormControl width="60%">
-                                            <FormLabel>Database Host:</FormLabel>
-                                            <Input value={databaseURI} onChange={(e) => setDatabaseURI(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
+                                            <FormLabel>Database Host</FormLabel>
+                                            <Input value={databaseHost} onChange={(e) => setDatabaseHost(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
                                         </FormControl>
 
-                                        <FormControl width="20%">
-                                            <FormLabel>Database Port:</FormLabel>
-                                            <Input type="number" variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
+                                        <FormControl width="15%">
+                                            <FormLabel>Port</FormLabel>
+                                            <Input value={databasePort} onChange={(e) => setDatabasePort(e.target.value)} type="number" variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
                                         </FormControl>
                                     </HStack>
                                     <FormControl width="60%">
-                                        <FormLabel>Database User:</FormLabel>
-                                        <Input variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
+                                        <FormLabel>Database User</FormLabel>
+                                        <Input value={databaseUser} onChange={(e) => setDatabaseUser(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
                                     </FormControl>
                                     <FormControl width="60%">
-                                        <FormLabel>Database Password:</FormLabel>
-                                        <Input variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
+                                        <FormLabel>Database Password</FormLabel>
+                                        <Input value={databasePassword} onChange={(e) => setDatabasePassword(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
                                     </FormControl>
 
                                     <Box width="60%" >
 
                                         <FormControl>
-                                            <FormLabel>Database Name:</FormLabel>
-                                            <Input variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
+                                            <FormLabel>Database Name</FormLabel>
+                                            <Input value={databaseName} onChange={(e) => setDatabaseName(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
                                         </FormControl>
                                     </Box>
-                                    <Button size="md" mt={4} isLoading={loading} loadingText="Updating Service" onClick={handleUpdateService} colorScheme="blue">
+                                    <Button size="md" mt={4} isLoading={loadingDatabase} loadingText="Updating Service" onClick={handleUpdateDatabase} colorScheme="blue">
                                         <BiSave size="20" />   <Text marginLeft="1">Save Database Creds</Text>
                                     </Button>
 

@@ -27,7 +27,7 @@ const CreateSchema = () => {
 
     const handleCreateSchema = () => {
         setLoading(true)
-        axios.post("http://localhost:3210/schemas", { name, description,  ServiceID: localStorage.getItem("ServiceID") })
+        axios.post("http://localhost:3210/schemas", { name, description,  ServiceID: localStorage.getItem("serviceID") })
             .then((res: any) => {
                 axios.post("http://localhost:3210/fields", { name: "ID", type: "uuid", default: "primarykey", null: "NOT_NULL", unique: true, schemaID: res.data.id })
                     .then((res: any) => {
