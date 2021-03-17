@@ -1,26 +1,24 @@
-import { Avatar } from '@chakra-ui/avatar'
-import { Button, ButtonGroup, IconButton } from '@chakra-ui/button'
-import { useColorMode, useColorModeValue } from '@chakra-ui/color-mode'
-import { Image } from '@chakra-ui/image'
-import { Box, Heading, HStack, Text, VStack, Link as TextLink, Stack, Flex, Divider } from '@chakra-ui/layout'
-import { Modal } from '@chakra-ui/modal'
+
+import { Button, IconButton } from '@chakra-ui/button'
+import { useColorMode} from '@chakra-ui/color-mode'
+
+import { Box, Heading, HStack, Text, VStack, Divider } from '@chakra-ui/layout'
+
 import { Stat, StatLabel, StatNumber } from '@chakra-ui/stat'
-import { Tooltip } from '@chakra-ui/tooltip'
+
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { BiDotsHorizontalRounded, BiPlus } from 'react-icons/bi'
-import { FaGithub, FaLinkedin, FaMoon, FaSun, FaTwitter } from 'react-icons/fa'
+
 import { useHistory } from 'react-router'
 import { Link } from 'react-router-dom'
-import { ColorModeSwitcher } from '../components/ColorModeSwitcher'
-import HeadBreadcrumbs from '../components/HeadBreadcrumbs'
+
 
 const DiscoverService = () => {
     const { colorMode, } = useColorMode()
     const history = useHistory()
-    const { toggleColorMode } = useColorMode()
     const [services, setServices] = useState([])
-    const SwitchIcon = useColorModeValue(FaMoon, FaSun)
+
     useEffect(() => {
         axios.get("https://egnite-backend.herokuapp.com/ping")
             .then(response => {

@@ -1,29 +1,18 @@
 import {
-    Avatar,
     Box,
     Button,
-    ButtonGroup,
-    Flex,
     FormControl,
     FormLabel,
     Heading,
     HStack,
-    IconButton,
-    Image,
     Input,
-    Link as TextLink,
     Select,
     Stack,
-    Text,
-    Tooltip,
     useColorMode,
     useColorModeValue as mode,
-    useColorModeValue,
-    VStack,
 } from '@chakra-ui/react'
 import axios from 'axios'
 import * as React from 'react'
-import { FaGithub, FaLinkedin, FaMoon, FaSun, FaTwitter } from 'react-icons/fa'
 import { useHistory } from 'react-router'
 import { Link } from 'react-router-dom'
 
@@ -40,8 +29,6 @@ const CreateService = () => {
 
     const history = useHistory()
     const { colorMode, } = useColorMode()
-    const { toggleColorMode } = useColorMode()
-    const SwitchIcon = useColorModeValue(FaMoon, FaSun)
     const handleCreateService = () => {
         setLoading(true)
         axios.post("https://egnite-backend.herokuapp.com/services", { name, DatabaseType: database, DatabaseName: databaseName, DatabaseHost: databaseHost, DatabasePORT: databasePort, DatabaseUser: databaseUser, DatabaseUserPassword: databasePassword })

@@ -37,7 +37,7 @@ const General = () => {
             .catch((err) => {
                 console.log(err);
             });
-    }, [setService])
+    }, [setService,serviceID])
 
     const handleRefreshService = () => {
         axios.get("https://egnite-backend.herokuapp.com/services/" + serviceID, { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
