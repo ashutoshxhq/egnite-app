@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Button, Divider, FormControl, FormLabel, Heading, HStack, Input, Select, Text, useColorMode, useToast, VStack } from '@chakra-ui/react'
+import { Box, Button, Divider, FormControl, FormLabel, Heading, HStack, Input, Select, Tab, TabList, TabPanel, TabPanels, Tabs, Text, useColorMode, useToast, VStack } from '@chakra-ui/react'
 import HeadBreadcrumbs from '../../components/HeadBreadcrumbs'
 import { BiPlus, BiSave } from 'react-icons/bi'
 import axios from 'axios'
@@ -37,7 +37,7 @@ const General = () => {
             .catch((err) => {
                 console.log(err);
             });
-    }, [setService,serviceID])
+    }, [setService, serviceID])
 
     const handleRefreshService = () => {
         axios.get("https://egnite-backend.herokuapp.com/services/" + serviceID, { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
@@ -64,7 +64,7 @@ const General = () => {
                 console.log(response)
                 setTimeout(() => { setLoadingDatabase(false) }, 300)
 
-                
+
                 toast({
                     title: "Database Updated.",
                     description: "Yay! database creds successfully updated",
@@ -90,7 +90,7 @@ const General = () => {
 
     const handleUpdateService = () => {
         setLoading(true)
-        axios.put("https://egnite-backend.herokuapp.com/services/" + serviceID, { name}, { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
+        axios.put("https://egnite-backend.herokuapp.com/services/" + serviceID, { name }, { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
             .then((res: any) => {
                 setTimeout(() => { setLoading(false) }, 300)
 
@@ -114,7 +114,7 @@ const General = () => {
     return (
         <Box width="100%">
             <VStack padding="20px">
-                <HeadBreadcrumbs primary="Settings" primaryRoute={"/"+serviceID+"/settings"} secondary="General" secondaryRoute={"/"+serviceID+"/settings"} />
+                <HeadBreadcrumbs primary="Settings" primaryRoute={"/" + serviceID + "/settings"} secondary="General" secondaryRoute={"/" + serviceID + "/settings"} />
                 <HStack justifyContent="space-between" width="100%">
                     <Box padding="20px">
                         <Heading color={colorMode === "light" ? "gray.700" : "gray.200"} size="lg">Settings</Heading>
@@ -125,151 +125,140 @@ const General = () => {
                     </Box>
                 </HStack>
                 <VStack width="100%" spacing="8"  >
-                    <Box borderRadius="8px" background={colorMode === "light" ? "white" : "gray.800"} width="calc(100% - 40px)">
-                        <VStack align="flex-start" justify="space-between" spacing="0" px="6" py="4">
-                            <Text as="h3" fontWeight="bold" fontSize="lg">
-                                Service Settings
-                        </Text>
-                            <Text color="gray.500" fontSize="sm">
-                                Manage service details here
-                        </Text>
+                    <Box width="100%" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
+                        <Tabs size="md"  width="100%" display="flex" justifyContent="center" flexDirection="column" alignItems="center">
+                            <Box width="calc(100% - 32px)" borderRadius="8px 8px 4px 4px" background={colorMode === "light" ? "white" : "gray.800"} paddingTop="10px" pb="0">
+                                <TabList>
+                                    <Tab fontWeight="500" mr="6">Service Details</Tab>
+                                    <Tab fontWeight="500"  mr="6">ENV (Variables)</Tab>
+                                    <Tab fontWeight="500"  mr="6">Database Details</Tab>
+                                </TabList>
+                            </Box>
 
-                        </VStack>
-                        <Divider />
-                        <HStack>
-                            <Box width="100%" px="6" py="4" pb="8">
-                                <VStack justifyContent="flex-start" alignItems="flex-start" spacing={6}>
-                                    <Box width="60%" >
-                                        <FormControl>
-                                            <FormLabel>Service Name</FormLabel>
-                                            <Input value={name} onChange={(e) => setName(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
-                                        </FormControl>
+
+                            <TabPanels>
+                                <TabPanel paddingTop="0">
+                                    <Box borderRadius="0 0 8px 8px" background={colorMode === "light" ? "white" : "gray.800"} width="calc(100%)">
+                                       
+                                        <HStack>
+                                            <Box width="100%" px="6" py="8" pb="8">
+                                                <VStack justifyContent="flex-start" alignItems="flex-start" spacing={6}>
+                                                    <Box width="60%" >
+                                                        <FormControl>
+                                                            <FormLabel>Service Name</FormLabel>
+                                                            <Input value={name} onChange={(e) => setName(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
+                                                        </FormControl>
+                                                    </Box>
+
+                                                    <Button size="md" mt={4} isLoading={loading} loadingText="Updating Service" onClick={handleUpdateService} colorScheme="blue">
+                                                        <BiSave size="20" />   <Text marginLeft="1">Save Service</Text>
+                                                    </Button>
+
+                                                </VStack>
+                                            </Box>
+
+                                        </HStack>
+
+
                                     </Box>
+                                </TabPanel>
+                                <TabPanel paddingTop="0">
+                                    <Box borderRadius="0 0 8px 8px" background={colorMode === "light" ? "white" : "gray.800"} width="calc(100%)">
+                                       
+                                        <HStack>
+                                            <Box width="100%" px="6" py="8" pb="8">
+                                                <VStack justifyContent="flex-start" alignItems="flex-start" spacing={6}>
+                                                    <HStack width="100%" >
+                                                        <Box width="30%" >
+                                                            <FormControl>
+                                                                <FormLabel>Variable Name</FormLabel>
+                                                                <Input variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
+                                                            </FormControl>
+                                                        </Box>
+                                                        <Box width="50%" >
+                                                            <FormControl>
+                                                                <FormLabel>Value</FormLabel>
+                                                                <Input variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
+                                                            </FormControl>
+                                                        </Box>
+                                                    </HStack>
 
-                                    <Button size="md" mt={4} isLoading={loading} loadingText="Updating Service" onClick={handleUpdateService} colorScheme="blue">
-                                        <BiSave size="20" />   <Text marginLeft="1">Save Service</Text>
-                                    </Button>
+                                                    <Button size="md" mt={4} isLoading={loadingEnv} loadingText="Updating Service" onClick={handleUpdateService} colorScheme="blue">
+                                                        <BiSave size="20" />  <Text marginLeft="1">Save Variables</Text>
+                                                    </Button>
+                                                </VStack>
+                                            </Box>
 
-                                </VStack>
-                            </Box>
-
-                        </HStack>
-
-
-                    </Box>
-                    <Box borderRadius="8px" background={colorMode === "light" ? "white" : "gray.800"} width="calc(100% - 40px)">
-                        <HStack justify="space-between">
-                            <VStack align="flex-start" justify="space-between" spacing="0" px="6" py="4">
-                                <Text as="h3" fontWeight="bold" fontSize="lg">
-                                    Environment Variables
-                                </Text>
-                                <Text color="gray.500" fontSize="sm">
-                                    Create and manage environment variables
-                                </Text>
-                            </VStack>
-                            <Box px="6" py="4">
-
-                                <Button size="md" mt={4} isLoading={loading} loadingText="Updating Service" onClick={() => { }}>
-                                    <BiPlus size="20" />   <Text marginLeft="1">Add New Variable</Text>
-                                </Button>
-                            </Box>
-                        </HStack>
-
-                        <Divider />
-                        <HStack>
-                            <Box width="100%" px="6" py="4" pb="8">
-                                <VStack justifyContent="flex-start" alignItems="flex-start" spacing={6}>
-                                    <HStack width="100%" >
-                                        <Box width="30%" >
-                                            <FormControl>
-                                                <FormLabel>Variable Name</FormLabel>
-                                                <Input variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
-                                            </FormControl>
-                                        </Box>
-                                        <Box width="50%" >
-                                            <FormControl>
-                                                <FormLabel>Value</FormLabel>
-                                                <Input variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
-                                            </FormControl>
-                                        </Box>
-                                    </HStack>
-
-                                    <Button size="md" mt={4} isLoading={loadingEnv} loadingText="Updating Service" onClick={handleUpdateService} colorScheme="blue">
-                                        <BiSave size="20" />  <Text marginLeft="1">Save Variables</Text>
-                                    </Button>
-                                </VStack>
-                            </Box>
-
-                        </HStack>
+                                        </HStack>
 
 
-                    </Box>
-
-                    <Box borderRadius="8px" background={colorMode === "light" ? "white" : "gray.800"} width="calc(100% - 40px)">
-                        <VStack align="flex-start" justify="space-between" spacing="0" px="6" py="4">
-                            <Text as="h3" fontWeight="bold" fontSize="lg">
-                                Database Settings
-                        </Text>
-                            <Text color="gray.500" fontSize="sm">
-                                Manage database details here
-                        </Text>
-
-                        </VStack>
-                        <Divider />
-                        <HStack>
-                            <Box width="100%" px="6" py="4" pb="8">
-                                <VStack justifyContent="flex-start" alignItems="flex-start" spacing={6}>
-
-                                    <Box width="60%" >
-                                        <FormControl >
-                                            <FormLabel>Database</FormLabel>
-                                            <Select placeholder="Select Field Type" value={database} onChange={(e) => setDatabase(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"}>
-                                                <option value="postgresql">PostgreSQL</option>
-                                                <option value="mysql">MYSQL</option>
-
-                                            </Select>
-                                        </FormControl>
                                     </Box>
-                                    <HStack mt={4} spacing={10} width="100%">
+                                </TabPanel>
+                                <TabPanel paddingTop="0">
+                                    <Box  borderRadius="0 0 8px 8px" background={colorMode === "light" ? "white" : "gray.800"} width="calc(100%)">
+                                        
+                                        <HStack>
+                                            <Box width="100%" px="6" py="8" pb="8">
+                                                <VStack justifyContent="flex-start" alignItems="flex-start" spacing={6}>
+
+                                                    <Box width="60%" >
+                                                        <FormControl >
+                                                            <FormLabel>Database</FormLabel>
+                                                            <Select placeholder="Select Field Type" value={database} onChange={(e) => setDatabase(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"}>
+                                                                <option value="postgresql">PostgreSQL</option>
+                                                                <option value="mysql">MYSQL</option>
+
+                                                            </Select>
+                                                        </FormControl>
+                                                    </Box>
+                                                    <HStack mt={4} spacing={10} width="100%">
 
 
-                                        <FormControl width="60%">
-                                            <FormLabel>Database Host</FormLabel>
-                                            <Input value={databaseHost} onChange={(e) => setDatabaseHost(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
-                                        </FormControl>
+                                                        <FormControl width="60%">
+                                                            <FormLabel>Database Host</FormLabel>
+                                                            <Input value={databaseHost} onChange={(e) => setDatabaseHost(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
+                                                        </FormControl>
 
-                                        <FormControl width="15%">
-                                            <FormLabel>Port</FormLabel>
-                                            <Input value={databasePort} onChange={(e) => setDatabasePort(e.target.value)} type="number" variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
-                                        </FormControl>
-                                    </HStack>
-                                    <FormControl width="60%">
-                                        <FormLabel>Database User</FormLabel>
-                                        <Input value={databaseUser} onChange={(e) => setDatabaseUser(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
-                                    </FormControl>
-                                    <FormControl width="60%">
-                                        <FormLabel>Database Password</FormLabel>
-                                        <Input value={databasePassword} onChange={(e) => setDatabasePassword(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
-                                    </FormControl>
+                                                        <FormControl width="15%">
+                                                            <FormLabel>Port</FormLabel>
+                                                            <Input value={databasePort} onChange={(e) => setDatabasePort(e.target.value)} type="number" variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
+                                                        </FormControl>
+                                                    </HStack>
+                                                    <FormControl width="60%">
+                                                        <FormLabel>Database User</FormLabel>
+                                                        <Input value={databaseUser} onChange={(e) => setDatabaseUser(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
+                                                    </FormControl>
+                                                    <FormControl width="60%">
+                                                        <FormLabel>Database Password</FormLabel>
+                                                        <Input value={databasePassword} onChange={(e) => setDatabasePassword(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
+                                                    </FormControl>
 
-                                    <Box width="60%" >
+                                                    <Box width="60%" >
 
-                                        <FormControl>
-                                            <FormLabel>Database Name</FormLabel>
-                                            <Input value={databaseName} onChange={(e) => setDatabaseName(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
-                                        </FormControl>
+                                                        <FormControl>
+                                                            <FormLabel>Database Name</FormLabel>
+                                                            <Input value={databaseName} onChange={(e) => setDatabaseName(e.target.value)} variant="filled" borderColor={colorMode === "light" ? "gray.300" : "gray.600"} />
+                                                        </FormControl>
+                                                    </Box>
+                                                    <Button size="md" mt={4} isLoading={loadingDatabase} loadingText="Updating Service" onClick={handleUpdateDatabase} colorScheme="blue">
+                                                        <BiSave size="20" />   <Text marginLeft="1">Save Database Creds</Text>
+                                                    </Button>
+
+                                                </VStack>
+                                            </Box>
+
+                                        </HStack>
+
+
                                     </Box>
-                                    <Button size="md" mt={4} isLoading={loadingDatabase} loadingText="Updating Service" onClick={handleUpdateDatabase} colorScheme="blue">
-                                        <BiSave size="20" />   <Text marginLeft="1">Save Database Creds</Text>
-                                    </Button>
-
-                                </VStack>
-                            </Box>
-
-                        </HStack>
-
-
+                                </TabPanel>
+                            </TabPanels>
+                        </Tabs>
                     </Box>
+
+
+
+
                 </VStack>
             </VStack>
 

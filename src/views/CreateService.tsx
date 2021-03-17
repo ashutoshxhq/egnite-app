@@ -31,12 +31,12 @@ const CreateService = () => {
     const { colorMode, } = useColorMode()
     const handleCreateService = () => {
         setLoading(true)
-        axios.post("https://egnite-backend.herokuapp.com/services", { name, DatabaseType: database, DatabaseName: databaseName, DatabaseHost: databaseHost, DatabasePORT: databasePort, DatabaseUser: databaseUser, DatabaseUserPassword: databasePassword })
+        axios.post("https://egnite-backend.herokuapp.com/services", { name, UserID: localStorage.getItem("userID"), DatabaseType: database, DatabaseName: databaseName, DatabaseHost: databaseHost, DatabasePORT: databasePort, DatabaseUser: databaseUser, DatabaseUserPassword: databasePassword }, { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
             .then(response => {
                 console.log(response)
                 setLoading(false)
                 localStorage.setItem("serviceID", response.data.id)
-                history.replace("/schemas")
+                history.replace("/"+response.data.id+"/schemas")
             })
             .catch(error => {
                 setLoading(false)
