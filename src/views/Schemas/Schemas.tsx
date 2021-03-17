@@ -1,6 +1,6 @@
-import { Box, Heading, HStack, Text, useColorMode, VStack } from '@chakra-ui/react'
+import { Box, CircularProgress, Heading, HStack, Text, useColorMode, VStack } from '@chakra-ui/react'
 import axios from 'axios'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { useRecoilState } from 'recoil'
 import HeadBreadcrumbs from '../../components/HeadBreadcrumbs'
@@ -12,13 +12,16 @@ const Schemas = () => {
     const { colorMode, } = useColorMode()
     const { serviceID } = useParams<any>();
     const [schemas, setSchemas] = useRecoilState(schemasAtom)
+    const [loading, setLoading] = useState(true)
     useEffect(() => {
-        axios.get("https://egnite-backend.herokuapp.com/schemas?fetchRelations=true&user="+localStorage.getItem("userID"), { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
+        axios.get("https://egnite-backend.herokuapp.com/schemas?fetchRelations=true&service="+serviceID, { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
             .then((res: any) => {
                 setSchemas([...res?.data?.schemas]);
+                setLoading(false)
             })
             .catch((err) => {
                 console.log(err);
+                setLoading(false)
             });
     }, [setSchemas])
 
@@ -35,7 +38,8 @@ const Schemas = () => {
                 </Box>
             </HStack>
             <VStack width="100%">
-            {schemas.map(schema => <SchemaItem key={schema.ID} id={schema.ID} name={schema.Name} description={schema.Description} fields={schema?.Fields?.length} relations={schema?.Relations?.length} />)}
+            {loading? <Box display="flex" width="100%" justifyContent="center"> <CircularProgress  isIndeterminate color="blue.500" trackColor="grey.500"/></Box>
+            : schemas.map(schema => <SchemaItem key={schema.ID} id={schema.ID} name={schema.Name} description={schema.Description} fields={schema?.Fields?.length} relations={schema?.Relations?.length} />)}
             </VStack>
         </VStack>
     )

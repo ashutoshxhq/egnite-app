@@ -3,6 +3,7 @@ import { Button, IconButton } from '@chakra-ui/button'
 import { useColorMode} from '@chakra-ui/color-mode'
 
 import { Box, Heading, HStack, Text, VStack, Divider } from '@chakra-ui/layout'
+import { CircularProgress } from '@chakra-ui/progress'
 
 import { Stat, StatLabel, StatNumber } from '@chakra-ui/stat'
 
@@ -18,15 +19,18 @@ const DiscoverService = () => {
     const { colorMode, } = useColorMode()
     const history = useHistory()
     const [services, setServices] = useState([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         axios.get("https://egnite-backend.herokuapp.com/ping")
             .then(response => {
+                
                 console.log(response)
                 axios.get("https://egnite-backend.herokuapp.com/services?user=" + localStorage.getItem("userID"), { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
                     .then(res => {
                         console.log(res)
                         setServices(res?.data?.services)
+                        setLoading(false)
                     })
                     .catch(err => {
                         console.log(err)
@@ -50,7 +54,8 @@ const DiscoverService = () => {
                     </Box>
                 </HStack>
                 <Box display={"flex"} width="100%">
-                    {services.map((service: any) => <Box background={colorMode === "light" ? "white" : "gray.800"} width="300px"  borderRadius="10px" mx={"20px"}>
+                    {loading? <Box display="flex" width="100%" justifyContent="center"> <CircularProgress  isIndeterminate color="blue.500" trackColor="grey.500"/></Box>: 
+                    services.map((service: any) => <Box background={colorMode === "light" ? "white" : "gray.800"} width="300px"  borderRadius="10px" mx={"20px"}>
                         <Box width="100%" display="flex" padding="20px" pb="8px" justifyContent="space-between" alignItems="center">
                             <Text fontWeight="600" fontSize="md">{service.name}</Text>
                             <IconButton aria-label="drop down" variant="ghost" icon={<BiDotsHorizontalRounded size="30" />}> </IconButton>

@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import Functions from "./views/Functions/Functions";
 import Marketplace from "./views/Marketplace/Marketplace";
 import Schemas from "./views/Schemas/Schemas";
@@ -19,7 +19,8 @@ const Layout = () => {
 
   return (
     <Switch>
-      <DashboardLayoutRoute path="/" exact component={DiscoverService} />
+      <Route path="/" exact><Redirect to="/dashboard" /> </Route>
+      <DashboardLayoutRoute path="/dashboard" exact component={DiscoverService} />
       <DashboardLayoutRoute path="/create-service" exact component={CreateService} />
       <AppLayoutRoute path="/:serviceID/dashboard" exact component={Dashboard} />
       <AppLayoutRoute path="/:serviceID/schemas" exact component={Schemas} />
