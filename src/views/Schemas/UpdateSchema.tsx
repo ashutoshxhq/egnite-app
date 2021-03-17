@@ -22,7 +22,7 @@ const UpdateSchema = ({ id, name: nameProp, description: descriptionProp }: Upda
     const [, setSchemas] = useRecoilState(schemasAtom)
 
     const handleRefreshSchemas = () => {
-        axios.get("http://localhost:3210/schemas?fetchRelations=true")
+        axios.get("https://egnite-backend.herokuapp.com/schemas?fetchRelations=true", { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
             .then((res: any) => {
                 setSchemas([...res?.data?.schemas]);
             })
@@ -34,7 +34,7 @@ const UpdateSchema = ({ id, name: nameProp, description: descriptionProp }: Upda
     const handleEditSchema = () => {
         setLoading(true)
         axios
-            .put(`http://localhost:3210/schemas/${id}`, { name, description })
+            .put(`https://egnite-backend.herokuapp.com/schemas/${id}`, { name, description }, { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
             .then((res) => {
                 console.log(res.data);
                 handleRefreshSchemas()

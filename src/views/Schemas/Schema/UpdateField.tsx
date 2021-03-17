@@ -38,7 +38,7 @@ const UpdateField = (props: UpdateFieldProps) => {
     const [schemas, setSchemas] = useRecoilState(schemasAtom)
 console.log(props)
     const handleRefreshSchemas = () => {
-        axios.get("http://localhost:3210/schemas?fetchRelations=true")
+        axios.get("https://egnite-backend.herokuapp.com/schemas?fetchRelations=true", { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
             .then((res: any) => {
                 setSchemas([...res?.data?.schemas]);
             })
@@ -49,7 +49,7 @@ console.log(props)
     const handleUpdateRelation = () => {
         setLoading(true)
 
-        axios.put(`http://localhost:3210/relations/${props.id}`, { name, type, ToSchemaID:toSchema, ToFieldID:toField, FromFieldID:fromField, SchemaID: schemaId })
+        axios.put(`https://egnite-backend.herokuapp.com/relations/${props.id}`, { name, type, ToSchemaID:toSchema, ToFieldID:toField, FromFieldID:fromField, SchemaID: schemaId }, { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
             .then((res) => {
                 console.log(res.data);
                 handleRefreshSchemas()
@@ -86,7 +86,7 @@ console.log(props)
         }
         setLoading(true)
         axios
-            .put(`http://localhost:3210/fields/${props.id}`, { name, type, default: dValue, null: nullType, unique, SchemaID: schemaId})
+            .put(`https://egnite-backend.herokuapp.com/fields/${props.id}`, { name, type, default: dValue, null: nullType, unique, SchemaID: schemaId}, { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
             .then((res) => {
                 console.log(res.data);
                 handleRefreshSchemas()

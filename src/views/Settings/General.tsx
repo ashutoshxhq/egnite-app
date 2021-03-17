@@ -3,9 +3,11 @@ import { Box, Button, Divider, FormControl, FormLabel, Heading, HStack, Input, S
 import HeadBreadcrumbs from '../../components/HeadBreadcrumbs'
 import { BiPlus, BiSave } from 'react-icons/bi'
 import axios from 'axios'
+import { useParams } from 'react-router'
 
 const General = () => {
     const { colorMode, } = useColorMode()
+    const { serviceID } = useParams<any>();
     const [name, setName] = useState("")
     const [database, setDatabase] = useState("")
     const [loading, setLoading] = useState(false)
@@ -20,7 +22,7 @@ const General = () => {
     const toast = useToast()
 
     useEffect(() => {
-        axios.get("http://localhost:3210/services/" + localStorage.getItem("serviceID"))
+        axios.get("https://egnite-backend.herokuapp.com/services/" + serviceID, { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
             .then((res: any) => {
                 console.log(res)
                 setService(res?.data?.service);
@@ -38,7 +40,7 @@ const General = () => {
     }, [setService])
 
     const handleRefreshService = () => {
-        axios.get("http://localhost:3210/services/" + localStorage.getItem("serviceID"))
+        axios.get("https://egnite-backend.herokuapp.com/services/" + serviceID, { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
             .then((res: any) => {
                 console.log(res)
                 setService(res?.data?.service);
@@ -57,7 +59,7 @@ const General = () => {
 
     const handleUpdateDatabase = () => {
         setLoadingDatabase(true)
-        axios.put("http://localhost:3210/services/" + localStorage.getItem("serviceID"), { name, DatabaseType: database, DatabaseName: databaseName, DatabaseHost: databaseHost, DatabasePORT: databasePort, DatabaseUser: databaseUser, DatabaseUserPassword: databasePassword })
+        axios.put("https://egnite-backend.herokuapp.com/services/" + serviceID, { name, DatabaseType: database, DatabaseName: databaseName, DatabaseHost: databaseHost, DatabasePORT: databasePort, DatabaseUser: databaseUser, DatabaseUserPassword: databasePassword }, { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
             .then(response => {
                 console.log(response)
                 setTimeout(() => { setLoadingDatabase(false) }, 300)
@@ -88,7 +90,7 @@ const General = () => {
 
     const handleUpdateService = () => {
         setLoading(true)
-        axios.put("http://localhost:3210/services/" + localStorage.getItem("serviceID"), { name})
+        axios.put("https://egnite-backend.herokuapp.com/services/" + serviceID, { name}, { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
             .then((res: any) => {
                 setTimeout(() => { setLoading(false) }, 300)
 
@@ -112,7 +114,7 @@ const General = () => {
     return (
         <Box width="100%">
             <VStack padding="20px">
-                <HeadBreadcrumbs primary="Settings" primaryRoute="/settings" secondary="General" secondaryRoute="/settings" />
+                <HeadBreadcrumbs primary="Settings" primaryRoute={"/"+serviceID+"/settings"} secondary="General" secondaryRoute={"/"+serviceID+"/settings"} />
                 <HStack justifyContent="space-between" width="100%">
                     <Box padding="20px">
                         <Heading color={colorMode === "light" ? "gray.700" : "gray.200"} size="lg">Settings</Heading>

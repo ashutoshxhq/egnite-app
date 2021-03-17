@@ -9,7 +9,7 @@ const GitSidebar = () => {
 
     const handleGenerateCode = () => {
         setGenerating(true)
-        axios.post("http://localhost:3210/generate", {})
+        axios.post("https://egnite-backend.herokuapp.com/generate", {})
             .then((res) => {
                 setGenerating(false)
                 setMessage("")

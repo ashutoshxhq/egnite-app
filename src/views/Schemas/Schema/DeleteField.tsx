@@ -16,7 +16,7 @@ const DeleteField = ({ id}: { id: string}) => {
     const toast = useToast()
 
     const handleRefreshSchemas = () => {
-        axios.get("http://localhost:3210/schemas?fetchRelations=true")
+        axios.get("https://egnite-backend.herokuapp.com/schemas?fetchRelations=true", { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
             .then((res: any) => {
                 setSchemas([...res?.data?.schemas]);
             })
@@ -27,7 +27,7 @@ const DeleteField = ({ id}: { id: string}) => {
 
     const handleDeleteField = () => {
         setLoading(true)
-        axios.delete(`http://localhost:3210/fields/${id}`)
+        axios.delete(`https://egnite-backend.herokuapp.com/fields/${id}`, { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
             .then((res) => {
                 console.log(res.data);
                 handleRefreshSchemas()

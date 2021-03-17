@@ -27,7 +27,7 @@ const CreateField = ({ buttonType }: any) => {
     const [schemas, setSchemas] = useRecoilState(schemasAtom)
 
     const handleRefreshSchemas = () => {
-        axios.get("http://localhost:3210/schemas?fetchRelations=true")
+        axios.get("https://egnite-backend.herokuapp.com/schemas?fetchRelations=true", { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
             .then((res: any) => {
                 setSchemas([...res?.data?.schemas]);
             })
@@ -38,7 +38,7 @@ const CreateField = ({ buttonType }: any) => {
     const handleCreateRelation = () => {
         setLoading(true)
 
-        axios.post("http://localhost:3210/relations", { name, type, ToSchemaID: toSchema, ToFieldID: toField, FromFieldID: fromField, SchemaID: schemaId })
+        axios.post("https://egnite-backend.herokuapp.com/relations", { name, type, ToSchemaID: toSchema, ToFieldID: toField, FromFieldID: fromField, SchemaID: schemaId }, { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
             .then((res) => {
                 console.log(res.data);
                 handleRefreshSchemas()
@@ -84,7 +84,7 @@ const CreateField = ({ buttonType }: any) => {
         }
         setLoading(true)
 
-        axios.post("http://localhost:3210/fields", { name, type, default: dValue, null: nullType, unique, schemaID: schemaId })
+        axios.post("https://egnite-backend.herokuapp.com/fields", { name, type, default: dValue, null: nullType, unique, schemaID: schemaId }, { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
             .then((res) => {
                 console.log(res.data);
                 handleRefreshSchemas()

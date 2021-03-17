@@ -21,7 +21,7 @@ export const LoginForm = () => {
           console.log(response.data.accessToken)
           localStorage.setItem("accessToken", response.data.accessToken)
           localStorage.setItem("loginStatus", "true")
-          localStorage.setItem("userId", response.data.user.ID)
+          localStorage.setItem("userID", response.data.user.ID)
           setLoading(false)
           histroy.replace("/")
           toast({

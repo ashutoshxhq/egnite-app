@@ -2,11 +2,12 @@ import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, Al
 import React from 'react'
 import { ColorModeSwitcher } from './ColorModeSwitcher'
 import { BiCog, BiFile, BiHome, BiLogOut, BiPaperPlane, BiStoreAlt } from "react-icons/bi";
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink, useHistory, useParams } from 'react-router-dom';
 
 const Sidebar = () => {
     const { colorMode, } = useColorMode()
     const history = useHistory()
+    const { serviceID } = useParams<any>();
     const menuItemColor = useColorModeValue("gray.200", "gray.700")
     const [isOpen, setIsOpen] = React.useState(false)
     const onClose = () => setIsOpen(false)
@@ -21,27 +22,27 @@ const Sidebar = () => {
         <Box display="flex" justifyContent="space-between" flexDirection="column" width="70px" height="calc(100vh - 1px)" padding="20px 10px" background={colorMode === "light" ? "white" : "gray.800"}>
             <VStack spacing={3}>
                 <Tooltip label="Search" aria-label="Search" placement="right" hasArrow >
-                    <Link as={NavLink} to={"/dashboard"} activeClassName="active-menu" display="flex" color="gray.500" background={menuItemColor} borderRadius="18px" justifyContent="center" alignItems="center" width="45px" height="45px">
+                    <Link as={NavLink} to={"/"+serviceID+"/dashboard"} activeClassName="active-menu" display="flex" color="gray.500" background={menuItemColor} borderRadius="18px" justifyContent="center" alignItems="center" width="45px" height="45px">
                         <BiHome size="25" />
                     </Link>
                 </Tooltip>
                 <Tooltip label="Schemas" aria-label="Schemas" placement="right" hasArrow >
-                    <Link as={NavLink} to={"/schemas"} activeClassName="active-menu" display="flex" color="gray.500" background={menuItemColor} borderRadius="18px" justifyContent="center" alignItems="center" width="45px" height="45px">
+                    <Link as={NavLink} to={"/"+serviceID+"/schemas"} activeClassName="active-menu" display="flex" color="gray.500" background={menuItemColor} borderRadius="18px" justifyContent="center" alignItems="center" width="45px" height="45px">
                         <   BiFile size="25" />
                     </Link>
                 </Tooltip>
                 <Tooltip label="Functions" aria-label="Functions" placement="right" hasArrow >
-                    <Link as={NavLink} to={"/functions"} activeClassName="active-menu" display="flex" color="gray.500" background={menuItemColor} borderRadius="18px" justifyContent="center" alignItems="center" width="45px" height="45px">
+                    <Link as={NavLink} to={"/"+serviceID+"/functions"} activeClassName="active-menu" display="flex" color="gray.500" background={menuItemColor} borderRadius="18px" justifyContent="center" alignItems="center" width="45px" height="45px">
                         <BiPaperPlane size="25" />
                     </Link>
                 </Tooltip>
                 <Tooltip label="Marketplace" aria-label="Marketplace" placement="right" hasArrow >
-                    <Link as={NavLink} to={"/marketplace"} activeClassName="active-menu" display="flex" color="gray.500" background={menuItemColor} borderRadius="18px" justifyContent="center" alignItems="center" width="45px" height="45px">
+                    <Link as={NavLink} to={"/"+serviceID+"/marketplace"} activeClassName="active-menu" display="flex" color="gray.500" background={menuItemColor} borderRadius="18px" justifyContent="center" alignItems="center" width="45px" height="45px">
                         <BiStoreAlt size="25" />
                     </Link>
                 </Tooltip>
                 <Tooltip label="Settings" aria-label="Settings" placement="right" hasArrow >
-                    <Link as={NavLink} to={"/settings"} activeClassName="active-menu" display="flex" color="gray.500" background={menuItemColor} borderRadius="18px" justifyContent="center" alignItems="center" width="45px" height="45px">
+                    <Link as={NavLink} to={"/"+serviceID+"/settings"} activeClassName="active-menu" display="flex" color="gray.500" background={menuItemColor} borderRadius="18px" justifyContent="center" alignItems="center" width="45px" height="45px">
                         <BiCog size="25" />
                     </Link>
                 </Tooltip>

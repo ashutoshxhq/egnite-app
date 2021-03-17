@@ -18,7 +18,15 @@
     font-family: 'Inter', sans-serif !important;
     margin: 0px;
  }
-
+ a{
+     text-decoration: none!important;
+ }
+a:hover{
+    text-decoration: none!important;
+}
+a:focus{
+    text-decoration: none!important;
+}
  .no-border{
      td{
          border-bottom: 0px;

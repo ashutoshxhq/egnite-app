@@ -2,11 +2,13 @@ import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButt
 import axios from 'axios'
 import React, { useState } from 'react'
 import { BiPlus } from 'react-icons/bi'
+import { useParams } from 'react-router'
 import { useRecoilState } from 'recoil'
 import { schemasAtom } from '../../store/schemas'
 
 const CreateSchema = () => {
     const { colorMode, } = useColorMode()
+    const { serviceID } = useParams<any>();
     const { isOpen, onOpen, onClose } = useDisclosure()
     const initialRef = React.useRef<any>()
     const toast = useToast()
@@ -16,7 +18,7 @@ const CreateSchema = () => {
     const [, setSchemas] = useRecoilState(schemasAtom)
 
     const handleRefreshSchemas = () => {
-        axios.get("http://localhost:3210/schemas?fetchRelations=true")
+        axios.get("https://egnite-backend.herokuapp.com/schemas?fetchRelations=true", { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
             .then((res: any) => {
                 setSchemas([...res?.data?.schemas]);
             })
@@ -27,9 +29,9 @@ const CreateSchema = () => {
 
     const handleCreateSchema = () => {
         setLoading(true)
-        axios.post("http://localhost:3210/schemas", { name, description,  ServiceID: localStorage.getItem("serviceID") })
+        axios.post("https://egnite-backend.herokuapp.com/schemas", { name, description,  ServiceID: serviceID, UserID: localStorage.getItem("userID")}, { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
             .then((res: any) => {
-                axios.post("http://localhost:3210/fields", { name: "ID", type: "uuid", default: "primarykey", null: "NOT_NULL", unique: true, schemaID: res.data.id })
+                axios.post("https://egnite-backend.herokuapp.com/fields", { name: "ID", type: "uuid", default: "primarykey", null: "NOT_NULL", unique: true, schemaID: res.data.id }, { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
                     .then((res: any) => {
                         handleRefreshSchemas()
                         setLoading(false)
@@ -45,6 +47,17 @@ const CreateSchema = () => {
                             isClosable: true,
                         })
                     })
+                    .catch((err) => {
+                        setLoading(false)
+                        toast({
+                            title: "An error occurred.",
+                            description: "Unable to create ID field.",
+                            status: "error",
+                            duration: 9000,
+                            isClosable: true,
+                        })
+                        console.log(err);
+                    });
             })
             .catch((err) => {
                 setLoading(false)
