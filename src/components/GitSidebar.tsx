@@ -36,7 +36,7 @@ const GitSidebar = () => {
 
                 <VStack spacing={2} align="left" padding="5px 15px">
                     <Box>
-                        <Text color="gray.500" fontWeight="500">Changes</Text>
+                        <Text color="gray.500" fontWeight="500">Commits</Text>
                     </Box>
                 </VStack>
             </VStack>
