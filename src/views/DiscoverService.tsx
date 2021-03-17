@@ -61,7 +61,7 @@ const DiscoverService = () => {
                             <IconButton aria-label="drop down" variant="ghost" icon={<BiDotsHorizontalRounded size="30" />}> </IconButton>
                         </Box>
                         <HStack spacing="4" display="flex" justifyContent="space-between" alignItems="center" width="100%" p="6" pt="2">
-                            <Stat px={{ base: 4, sm: 6 }} py="5" width="50%" bg={colorMode === "light" ? 'white' : 'rgb(255 255 255 / 2%)'} rounded="lg">
+                            <Stat px={{ base: 4, sm: 6 }} py="5" width="50%" border="solid 1px" borderColor={colorMode === "light" ? 'white' : 'rgb(255 255 255 / 2%)'} rounded="lg">
 
                                 <StatNumber fontSize="3xl" textAlign="center" fontWeight="medium" color={colorMode === "light" ? 'gray.900' : 'white'}>
                                     {service.Schemas.length}
@@ -70,7 +70,7 @@ const DiscoverService = () => {
                                     Schemas
                                 </StatLabel>
                             </Stat>
-                            <Stat px={{ base: 4, sm: 6 }} py="5" width="50%" bg={colorMode === "light" ? 'white' : 'rgb(255 255 255 / 2%)'} rounded="lg">
+                            <Stat px={{ base: 4, sm: 6 }} py="5" width="50%" border="solid 1px" borderColor={colorMode === "light" ? 'white' : 'rgb(255 255 255 / 2%)'} rounded="lg">
 
                                 <StatNumber fontSize="3xl" textAlign="center" fontWeight="medium" color={colorMode === "light" ? 'gray.900' : 'white'}>
                                 {service?.Functions?.length === undefined ? 0: service?.Functions?.length}

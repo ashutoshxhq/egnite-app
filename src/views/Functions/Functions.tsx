@@ -1,4 +1,4 @@
-import { Box, Heading, HStack, Text, useColorMode, VStack } from '@chakra-ui/react'
+import { Box, Heading, HStack, Image, Text, useColorMode, VStack } from '@chakra-ui/react'
 import React from 'react'
 import { useParams } from 'react-router'
 import HeadBreadcrumbs from '../../components/HeadBreadcrumbs'
@@ -20,6 +20,9 @@ const Functions = () => {
                         {/* <CreateSchema /> */}
                     </Box>
                 </HStack>
+                <Box width="100%" py="20" display="flex" justifyContent="center" opacity="0.5">
+                    <Image src="/soon.svg" w="40%" h="100%"/>
+                </Box>
             </VStack>
         </Box>
     )

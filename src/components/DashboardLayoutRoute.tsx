@@ -18,8 +18,8 @@ const DashboardLayoutRoute = ({ component: C, ...props }: any) => {
                         <TextLink to="/"><Image src="/egnite.svg" height="2.5rem"></Image></TextLink>
                         <Box display={{ base: "none", sm: "none", md: "flex" }} alignItems="center">
                             <HStack spacing="2rem">
-                                <TextLink as={Link} to="/" fontWeight="600" color="blue.500">Home</TextLink>
-                                <TextLink href="#features" fontWeight="600" color="rgb(74, 85, 104)">Feedback</TextLink>
+                                <TextLink as={Link} to="/" fontWeight="600"  color="blue.500">Home</TextLink>
+                                <TextLink href="#features" fontWeight="600" color={colorMode === "light" ? "gray.500" : "rgb(160, 174, 192)"}>Feedback</TextLink>
 
                             </HStack>
                         </Box>
