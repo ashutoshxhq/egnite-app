@@ -27,13 +27,6 @@ const DiscoverService = () => {
                     .then(res => {
                         console.log(res)
                         setServices(res?.data?.services)
-                        if (res.data.services.length === 0) {
-                            history.replace("/create-service")
-                        } else {
-                            console.log(res.data.services[0].name)
-                            localStorage.setItem("serviceID", res.data.services[0].ID)
-                            // history.replace("/schemas")
-                        }
                     })
                     .catch(err => {
                         console.log(err)
