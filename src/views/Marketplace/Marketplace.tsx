@@ -19,7 +19,7 @@ const Marketplace = () => {
                         {/* <CreateSchema /> */}
                     </Box>
                 </HStack>
-                <Box width="100%" py="20" display="flex" justifyContent="center" opacity="0.5">
+                <Box width="100%" py="20" display="flex" justifyContent="center" opacity="0.1">
                     <Image src="/soon.svg" w="40%" h="100%"/>
                 </Box>
             </VStack>
