@@ -8,7 +8,7 @@ import { schemasAtom } from '../../../store/schemas'
 
 const CreateField = ({ buttonType }: any) => {
     const { schemaId } = useParams<any>();
-
+    const { serviceID } = useParams<any>();
     const { colorMode, } = useColorMode()
     const { isOpen, onOpen, onClose } = useDisclosure()
     const initialRef = React.useRef<any>()
@@ -27,7 +27,7 @@ const CreateField = ({ buttonType }: any) => {
     const [schemas, setSchemas] = useRecoilState(schemasAtom)
 
     const handleRefreshSchemas = () => {
-        axios.get("https://egnite-backend.herokuapp.com/schemas?fetchRelations=true", { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
+        axios.get("https://egnite-backend.herokuapp.com/schemas?fetchRelations=true&service="+serviceID, { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
             .then((res: any) => {
                 setSchemas([...res?.data?.schemas]);
             })

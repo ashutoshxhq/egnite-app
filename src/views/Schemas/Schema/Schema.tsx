@@ -33,7 +33,7 @@ const Schema = () => {
     useEffect(() => {
         setLoading(true);
         if (schemas.length === 0) {
-            axios.get("https://egnite-backend.herokuapp.com/schemas?fetchRelations=true", { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
+            axios.get("https://egnite-backend.herokuapp.com/schemas?fetchRelations=true&service="+serviceID, { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
                 .then((res: any) => {
                     setSchemas([...res?.data?.schemas]);
                     res?.data?.schemas.map((schema: any) => {

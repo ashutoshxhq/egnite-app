@@ -2,11 +2,12 @@ import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, Al
 import axios from 'axios'
 import React, { useState } from 'react'
 import { BiTrash } from 'react-icons/bi'
+import { useParams } from 'react-router'
 import { useRecoilState } from 'recoil'
 import { schemasAtom } from '../../store/schemas'
 
 const DeleteSchema = ({ id }: { id: string }) => {
-
+    const { serviceID } = useParams<any>();
     const [isOpen, setIsOpen] = useState(false)
     const onClose = () => setIsOpen(false)
     const cancelRef = React.useRef<any>()
@@ -15,7 +16,7 @@ const DeleteSchema = ({ id }: { id: string }) => {
     const toast = useToast()
 
     const handleRefreshSchemas = () => {
-        axios.get("https://egnite-backend.herokuapp.com/schemas?fetchRelations=true", { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
+        axios.get("https://egnite-backend.herokuapp.com/schemas?fetchRelations=true&service="+serviceID, { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
             .then((res: any) => {
                 setSchemas([...res?.data?.schemas]);
             })

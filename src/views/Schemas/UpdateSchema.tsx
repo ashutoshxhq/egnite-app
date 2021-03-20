@@ -2,6 +2,7 @@ import { Button, FormControl, FormLabel, IconButton, Input, Modal, ModalBody, Mo
 import axios from 'axios'
 import React, { useState } from 'react'
 import { BiEditAlt } from 'react-icons/bi'
+import { useParams } from 'react-router'
 import { useRecoilState } from 'recoil'
 import { schemasAtom } from '../../store/schemas'
 
@@ -14,6 +15,7 @@ interface UpdateSchemaProps {
 const UpdateSchema = ({ id, name: nameProp, description: descriptionProp }: UpdateSchemaProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const initialRef = React.useRef<any>()
+    const { serviceID } = useParams<any>();
     const { colorMode, } = useColorMode()
     const toast = useToast()
     const [name, setName] = useState(nameProp)
@@ -22,7 +24,7 @@ const UpdateSchema = ({ id, name: nameProp, description: descriptionProp }: Upda
     const [, setSchemas] = useRecoilState(schemasAtom)
 
     const handleRefreshSchemas = () => {
-        axios.get("https://egnite-backend.herokuapp.com/schemas?fetchRelations=true", { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
+        axios.get("https://egnite-backend.herokuapp.com/schemas?fetchRelations=true&service="+serviceID, { headers: { Authorization: "Bearer " + localStorage.getItem("accessToken") } })
             .then((res: any) => {
                 setSchemas([...res?.data?.schemas]);
             })
