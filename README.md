@@ -1,3 +1,3 @@
 # egnite-app
-Egnite Client Application
-<img src="egnite.png"/>
+
+<img src="egnite.png" width="100%"/>
